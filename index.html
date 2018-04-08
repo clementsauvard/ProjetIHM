@@ -6,16 +6,30 @@
     <link rel="stylesheet" type="text/css" href="jquery-ui.css" />
 </head>
 <body>
-    <div class="popupAlarmes">
-        qsdsq
+<div id="pop">
+    <div class="popup" id="popupAlarmes">
+        <div class="entries">Ajouter une alarme</div>
     </div>
+
+    <div class="popup" id="popupEvents">
+        Evènements
+    </div>
+
+    <div class="popup" id="popupAppas">
+        Appareils
+    </div>
+
+    <div class="popup" id="popupAbout">
+        Entièrement et uniquement codé par Cyril Alias Sklinay <br> Aldé reviens stp
+    </div>
+</div>
     
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Alarmes</a>
-        <a href="#">Evènements</a>
-        <a href="#">Appareils</a>
-        <a href="#">A propos</a>
+        <a href="#" id="btnAlarme">Alarmes</a>
+        <a href="#" id="btnEven" >Evènements</a>
+        <a href="#" id="btnAppa" >Appareils</a>
+        <a href="#" id="btnAbout" >A propos</a>
     </div>
 
     <div class="topbar" id="topbar">
@@ -27,7 +41,6 @@
         <div class="planContainer" id="planContainer">
             <div class="plan" id="plan">
                 <img class="planImg" src="plan1er.png" id="planImg" />
-                <div class="rec" id="rec1"></div>
             </div>
         </div>
         <div class="floorSlider" id="floorSlider">

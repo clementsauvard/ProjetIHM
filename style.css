@@ -1,5 +1,5 @@
 body {
-    font-family: "Lato", sans-serif;
+    font-family: "Calibri", sans-serif;
     margin: 0 auto;
     width: 100%;
 }
@@ -72,19 +72,6 @@ body {
     display: inline-block;
 }
 
-/*.rec {
-    position: absolute;
-    width: 1.9%;
-    height: 8%;
-    top: 57%;
-    left: 98%;
-    background-color: grey;
-}*/
-
-@media screen and (orientation: landscape){
-    /*.plan{ transform: rotate(90deg) scale(1.4);}*/
-}
-
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
@@ -98,7 +85,9 @@ body {
     width: 80%;
 }
 
-.popupAlarmes {
+.popup {
+    overflow: scroll;    
+    padding: 5px;
     position: absolute;
     background-color: white;
     border-radius: 15px;
@@ -113,5 +102,36 @@ body {
     width: 80vw;
     height: 61vh;
     margin-top: -30.5vh;
-    margin-left: -40vw;
+    margin-left: -40vw;    
+}
+
+.entries{
+    overflow: hidden;
+    padding: 3px;
+    margin: 0 auto;
+    text-align: left;
+    width: 90%;    
+    height: 30px;    
+    line-height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    margin-bottom: 5px;
+}
+
+.hour {
+    font-weight: bold;
+}
+
+.dayS {
+    font-weight: bold;
+    color: dodgerblue;
+}
+
+.dayN {
+    font-weight: lighter;
+    color: grey;
+    opacity: 0.5;
 }

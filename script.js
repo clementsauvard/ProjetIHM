@@ -175,18 +175,20 @@ function show1er() {
 }
 load1er();
 /////////////////////////////////////////////////////////////////////
-
-$(function(){
-    $('#doorGarage').click(function(e) {  
-        alert("nique ta mere ouvre la porte du garage");
-    });
-
-    $('#doorHouse').click(function(e) {  
-        alert("cyril ouvre la porte la putin");
-    });
-});
-
+var day = ['L','M','M','J','V','S','D'];
+function addAlarme(heure,tableDay){
+    var line = "";
+    for(var i=0;i<tableDay.length;i++){
+        if(tableDay[i]){
+            line += "<span class='dayS'>"+ day[i] +"</span> ";
+        } else{
+            line += "<span class='dayN'>"+ day[i] +"</span> ";
+        }
+    }
+    $("<div class='entries'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
+}
 $(function () {
+    $('.popup').hide();
     $("#floorSlider").slider({
         min: 0,
         max: 1,
@@ -194,4 +196,30 @@ $(function () {
         animate: true,
         change: switchFloor
     }); 
+    $("#btnAlarme").click(function(e){
+        closeNav();
+        $('.popup').fadeOut(200);
+        $('#popupAlarmes').fadeIn(200);
+    });
+    
+    $("#btnEven").click(function(e) {
+        closeNav();
+        $('.popup').fadeOut(200);
+        $('#popupEvents').fadeIn(200);
+    });
+    
+    $("#btnAppa").click(function(e) {
+        closeNav();
+        $('.popup').fadeOut(200);
+        $('#popupAppas').fadeIn(200);
+    });
+    
+    $("#btnAbout").click(function(e) {
+        closeNav();
+        $('.popup').fadeOut(200);
+        $('#popupAbout').fadeIn(200);
+    });
+    
+   addAlarme("08h00",[true,false,true,false,true,true,false]);
+
 });
