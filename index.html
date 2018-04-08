@@ -38,11 +38,12 @@
 
             <input id="timeAlarme" type="time"><br><br>
             <input class="button" id="valideAlarm" type="button" value="Valider" onclick="addAlarm()">
-            <input class="button" id="cancel" type="button" value="Annuler">
+            <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
         </div>
+        
         <div id="successAlarm" hidden>
             <br><br>Votre alarmes à bien été créée <br><br>
-            <input class="button" id="cancel" type="button" value="Fermer">
+            <input class="button" id="cancel" type="button" value="Fermer" onclick="hideAll(this)">
         </div>
     </div>
     

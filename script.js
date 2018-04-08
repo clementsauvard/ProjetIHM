@@ -176,7 +176,10 @@ function show1er() {
 load1er();
 /////////////////////////////////////////////////////////////////////
 var day = ['L','M','M','J','V','S','D'];
-function addAlarme(heure,tableDay){
+function addAlarmToList(alarm){
+    var heure = alarm[0];
+    var tableDay = alarm[1];
+    var alarmID = alarm[2];
     var line = "";
     for(var i=0;i<tableDay.length;i++){
         if(tableDay[i]){
@@ -185,12 +188,20 @@ function addAlarme(heure,tableDay){
             line += "<span class='dayN'>"+ day[i] +"</span> ";
         }
     }
-    $("<div class='entries'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
+    $("<div class='entries' id='alarmID"+alarmID+"' onclick='editAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
 }
-<<<<<<< HEAD
-
+function removeAlarmToList(id){
+    var listDivAlarm = $('#popupAlarmes').children();
+    for(var i=1;i<listDivAlarm.length;i++){
+        if(listDivAlarm[i].id == "alarmID"+id){
+            listDivAlarm[i].remove();
+            break;
+        }
+    }
+}
 var alarmTab = [];
-
+var idAlarmI = 0;
+var alarmInEdit = -1;
 function startCreationAlarm(){
     for (var i = 1; i <= 7; i++)
        $('#day' + i).removeClass('selectedCircle');
@@ -198,27 +209,54 @@ function startCreationAlarm(){
     $('#creationAlarm').show();
     $('#successAlarm').hide();
     $('#timeAlarme')[0].value = '';
-    
+    hideAll();
     $('#popupAlarmStep1').fadeIn(200);
 }
+
+function editAlarm(e){
+    var id = parseInt(e.replace("alarmID",""))
+    alarmInEdit = id;
+    for (var i = 1; i <= 7; i++)
+       $('#day' + i).removeClass('selectedCircle');
+    
+    for (var i = 1; i <= 7; i++){
+        if(alarmTab[id][1][i-1])
+            $('#day' + i).addClass('selectedCircle');
+    }
+     
+    $('#creationAlarm').show();
+    $('#successAlarm').hide();
+    $('#timeAlarme')[0].value = alarmTab[id][0];
+    hideAll();
+    $('#popupAlarmStep1').fadeIn(200);
+}
+
 function addAlarm(){
     var days = [false,false,false,false,false,false,false];
     for(var i=1;i<=7;i++)
         days[i-1] = $('#day'+i).hasClass('selectedCircle');        
     
     var hour = $('#timeAlarme')[0].value;
-    alarmTab.push([hour,days]);
+    
+    var id = alarmInEdit
+    
+    if(id == -1)
+        id = ++idAlarmI; 
+    else
+        removeAlarmToList(id);
+    
+    var newAlarm = [hour,days,id];
+    alarmTab[id] = newAlarm;
+    addAlarmToList(newAlarm);
     $('#creationAlarm').hide();
     $('#successAlarm').show();
     
 }
-=======
 function hideAll() {
     $('.popup').fadeOut(200);
     closeNav();
 }
 
->>>>>>> 59fee47cdc742ab709f89483515b8898fefd746c
 $(function () {
     $('.popup').hide();
     $("#floorSlider").slider({
@@ -252,7 +290,6 @@ $(function () {
         $('#popupAbout').fadeIn(200);
     });
     
-<<<<<<< HEAD
     $('.cirlcleDay').click(function (e){
         if($(this).hasClass('selectedCircle'))
              $(this).removeClass("selectedCircle");
@@ -260,13 +297,11 @@ $(function () {
             $(this).addClass("selectedCircle");
     })
     
-   addAlarme("08h00",[true,false,true,false,true,true,false]);
-=======
+    
+
     $(".content").click(function(e) {
         hideAll();
     });
     
-    addAlarme("08h00",[true,false,true,false,true,true,false]);
 
->>>>>>> 59fee47cdc742ab709f89483515b8898fefd746c
 });
