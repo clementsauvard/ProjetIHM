@@ -12,10 +12,11 @@ $("#floorSlider").slider({
     }
 });
 
-/*$('#rec1').draggable();*/
-  $( function() {
+
+$( function() {
     $( "#floorSlider" ).slider({min: 0, max: 1, value: 0, animate: true, change: switchFloor});
-  } );
+} );
+
 function switchFloor(event, ui) {
     if (ui.value == 0)    
         showRDC();    
@@ -73,6 +74,7 @@ eleRDC.push($("<div id='doorBotRight'>").attr({
     'style': "position: absolute; width: 1.9%; height: 7%; top: 85%; left: 69%; background-color: grey;"
 }).hide());
 
+
 //Porte entrée maison
 eleRDC.push($("<div id='doorHouse'>").attr({
     'style': "position: absolute; width: 1.9%; height: 8%; top: 57%; left: 98%; background-color: grey;"
@@ -103,7 +105,7 @@ function showRDC() {
 loadRDC();
 showRDC();
 /////////////////////////////////////////////////////////////////////
-
+$('#doorHouse').draggable();
 /////////////////////////////////////////////////////////////////////1er étage
 var ele1er = [];
 
