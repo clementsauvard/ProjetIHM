@@ -36,27 +36,27 @@ eleRDC.push($("<div id='doorGarage'>").attr({
 
 //Fenêtre garage
 eleRDC.push($("<div id='fenGarage'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 15%; top: 7%; left: 0%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 7%; left: 0%; background-color: blue;"
 }).hide());
 
 //Fenêtre pièce a gauche de l'escalier
 eleRDC.push($("<div id='fenLeftEsc'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 10%; top: 35%; left: 0%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 10%; top: 35%; left: 0%; background-color: blue;"
 }).hide());
 
 //Fenêtre au milieu à gauche
 eleRDC.push($("<div id='fenLeftMid'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 15%; top: 57%; left: 0%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 57%; left: 0%; background-color: blue;"
 }).hide());
 
 //Fenêtre pièce en bas à gauche
 eleRDC.push($("<div id='fenBottomLeft'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 10%; top: 84%; left: 0%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 10%; top: 84%; left: 0%; background-color: blue;"
 }).hide());
 
 //Fenêtre pièce en bas à Droite
 eleRDC.push($("<div id='fenBotRight'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 10%; top: 84%; left: 98%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 10%; top: 84%; left: 98%; background-color: blue;"
 }).hide());
 
 //Porte pièce en haut à gauche
@@ -111,27 +111,27 @@ var ele1er = [];
 
 //Fenêtre pièce a gauche de l'escalier
 ele1er.push($("<div id='fenLeftEsc1er'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 10%; top: 33%; left: 0%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 10%; top: 33%; left: 0%; background-color: blue;"
 }).hide());
 
 //Fenêtre pièce milieu à gauche
 ele1er.push($("<div id='fenLeftMid1er'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 15%; top: 51%; left: 0%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 51%; left: 0%; background-color: blue;"
 }).hide());
 
 //Fenêtre pièce milieu à droite
 ele1er.push($("<div id='fenRightMid1er'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 15%; top: 51%; left: 98%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 51%; left: 98%; background-color: blue;"
 }).hide());
 
 //Fenêtre pièce en bas à gauche
 ele1er.push($("<div id='fenBotLeft1er'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 15%; top: 77%; left: 0%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 77%; left: 0%; background-color: blue;"
 }).hide());
 
 //Fenêtre pièce en bas à Droite
 ele1er.push($("<div id='fenBotRight1er'>").attr({
-    'style': "position: absolute; width: 1.9%; height: 10%; top: 80%; left: 98%; background-color: grey;"
+    'style': "position: absolute; width: 1.9%; height: 10%; top: 80%; left: 98%; background-color: blue;"
 }).hide());
 
 //Porte pièce milieu en bas
