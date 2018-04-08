@@ -13,9 +13,6 @@ $("#floorSlider").slider({
 });
 
 
-$( function() {
-    $( "#floorSlider" ).slider({min: 0, max: 1, value: 0, animate: true, change: switchFloor});
-} );
 
 function switchFloor(event, ui) {
     if (ui.value == 0)    
@@ -105,7 +102,7 @@ function showRDC() {
 loadRDC();
 showRDC();
 /////////////////////////////////////////////////////////////////////
-$('#doorHouse').draggable();
+
 /////////////////////////////////////////////////////////////////////1er étage
 var ele1er = [];
 
@@ -140,4 +137,14 @@ $(function(){
     $('#doorHouse').click(function(e) {  
         alert("cyril ouvre la porte la putin");
     });
+});
+
+$(function () {
+    $("#floorSlider").slider({
+        min: 0,
+        max: 1,
+        value: 0,
+        animate: true,
+        change: switchFloor
+    }); 
 });

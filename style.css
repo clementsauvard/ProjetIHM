@@ -53,6 +53,9 @@ body {
 }
 
 .planContainer{ 
+    
+    overflow-x: scroll;
+    overflow-y: scroll;
     display: block;
     padding: 5px;
 }
@@ -62,6 +65,8 @@ body {
 }
 
 .plan {
+    transform-origin: left top;
+    transform: scale(1);
     position: relative;    
     display: inline-block;
 }
