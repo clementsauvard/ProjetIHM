@@ -187,6 +187,7 @@ function addAlarme(heure,tableDay){
     }
     $("<div class='entries'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
 }
+<<<<<<< HEAD
 
 var alarmTab = [];
 
@@ -211,6 +212,13 @@ function addAlarm(){
     $('#successAlarm').show();
     
 }
+=======
+function hideAll() {
+    $('.popup').fadeOut(200);
+    closeNav();
+}
+
+>>>>>>> 59fee47cdc742ab709f89483515b8898fefd746c
 $(function () {
     $('.popup').hide();
     $("#floorSlider").slider({
@@ -244,6 +252,7 @@ $(function () {
         $('#popupAbout').fadeIn(200);
     });
     
+<<<<<<< HEAD
     $('.cirlcleDay').click(function (e){
         if($(this).hasClass('selectedCircle'))
              $(this).removeClass("selectedCircle");
@@ -252,4 +261,12 @@ $(function () {
     })
     
    addAlarme("08h00",[true,false,true,false,true,true,false]);
+=======
+    $(".content").click(function(e) {
+        hideAll();
+    });
+    
+    addAlarme("08h00",[true,false,true,false,true,true,false]);
+
+>>>>>>> 59fee47cdc742ab709f89483515b8898fefd746c
 });
