@@ -17,6 +17,7 @@ body {
     padding-top: 60px;
     box-shadow: 2px 0px 15px 0px black;
 }
+
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -81,6 +82,7 @@ body {
 }
 
 .floorSlider {
+    z-index: 0;
     margin: 10px auto 0 auto;
     width: 80%;
 }
@@ -134,4 +136,59 @@ body {
     font-weight: lighter;
     color: grey;
     opacity: 0.5;
+}
+
+.cirlcleDay {
+    float: left;
+    width: 25px;
+    height: 25px;
+    font-size: 13pt;
+    font-weight: bold;
+    line-height:25px;
+    margin-right: 5px;
+    border-radius: 30px;
+    border-color: lightgrey;
+    border-width: 2px;
+    border-style: solid;
+    user-select: none;
+}
+
+.cirlcleDay {
+    float: left;
+    width: 25px;
+    height: 25px;
+    font-size: 13pt;
+    font-weight: bold;
+    line-height:25px;
+    margin-right: 5px;
+    border-radius: 30px;
+    border-color: lightgrey;
+    border-width: 2px;
+    border-style: solid;
+    user-select: none;
+}
+.selectedCircle {
+     border-color: dodgerblue;
+}
+
+.circleList {
+    display: inline-block;
+}
+
+
+
+#popupAlarmStep1 {    
+    padding-top: 10px;
+    height: 150px;
+}
+
+.button {
+    width: 120px;
+    border-radius: 15px;
+    background-color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    font-size: 13pt;
+    font-weight: bold;
 }
