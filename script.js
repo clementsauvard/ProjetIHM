@@ -28,53 +28,53 @@ var planImg = $('#planImg');
 
 /////////////////////////////////////////////////////////////////////RDC
 var eleRDC = [];
-//Porte garage
-eleRDC.push($("<div>").attr({
+//Porte garage:
+eleRDC.push($("<div id='doorGarage'>").attr({
     'style': "position: absolute; width: 2%; height: 24%; top: 2.8%; left: 61.2%; background-color: grey;"
 }).hide());
 
 //Fenêtre garage
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='fenGarage'>").attr({
     'style': "position: absolute; width: 1.9%; height: 15%; top: 7%; left: 0%; background-color: grey;"
 }).hide());
 
 //Fenêtre pièce a gauche de l'escalier
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='fenLeftEsc'>").attr({
     'style': "position: absolute; width: 1.9%; height: 10%; top: 35%; left: 0%; background-color: grey;"
 }).hide());
 
 //Fenêtre au milieu à gauche
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='fenLeftMid'>").attr({
     'style': "position: absolute; width: 1.9%; height: 15%; top: 57%; left: 0%; background-color: grey;"
 }).hide());
 
 //Fenêtre pièce en bas à gauche
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='fenBottomLeft'>").attr({
     'style': "position: absolute; width: 1.9%; height: 10%; top: 84%; left: 0%; background-color: grey;"
 }).hide());
 
 //Fenêtre pièce en bas à Droite
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='fenBotRight'>").attr({
     'style': "position: absolute; width: 1.9%; height: 10%; top: 84%; left: 98%; background-color: grey;"
 }).hide());
 
 //Porte pièce en haut à gauche
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='doorUpLeft'>").attr({
     'style': "position: absolute; width: 1.9%; height: 7%; top: 37%; left: 54%; background-color: grey;"
 }).hide());
 
 //Porte pièce en bas à gauche
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='doorBotLeft'>").attr({
     'style': "position: absolute; width: 1.9%; height: 7%; top: 85%; left: 54%; background-color: grey;"
 }).hide());
 
 //Porte pièce en bas à droite
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='doorBotRight'>").attr({
     'style': "position: absolute; width: 1.9%; height: 7%; top: 85%; left: 69%; background-color: grey;"
 }).hide());
 
 //Porte entrée maison
-eleRDC.push($("<div>").attr({
+eleRDC.push($("<div id='doorHouse'>").attr({
     'style': "position: absolute; width: 1.9%; height: 8%; top: 57%; left: 98%; background-color: grey;"
 }).hide());
 
@@ -129,3 +129,13 @@ function show1er() {
 }
 load1er();
 /////////////////////////////////////////////////////////////////////
+
+$(function(){
+    $('#doorGarage').click(function(e) {  
+        alert("nique ta mere ouvre la porte du garage");
+    });
+
+    $('#doorHouse').click(function(e) {  
+        alert("cyril ouvre la porte la putin");
+    });
+});
