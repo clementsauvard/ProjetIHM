@@ -8,7 +8,8 @@
 <body>
 <div id="pop">
     <div class="popup" id="popupAlarmes">
-        <div class="entries">Ajouter une alarme</div>
+        <div class="entries"  onclick="startCreationAlarm()">Ajouter une alarme</div>
+        
     </div>
 
     <div class="popup" id="popupEvents">
@@ -22,6 +23,29 @@
     <div class="popup" id="popupAbout">
         Entièrement et uniquement codé par Cyril Alias Sklinay <br> Aldé reviens stp
     </div>
+    
+    <div class="popup" id="popupAlarmStep1">
+        <div id="creationAlarm">
+            <div class="circleList">
+                <div class="cirlcleDay" id="day1">L</div>
+                <div class="cirlcleDay" id="day2">M</div>
+                <div class="cirlcleDay" id="day3">M</div>
+                <div class="cirlcleDay" id="day4">J</div>
+                <div class="cirlcleDay" id="day5">V</div>
+                <div class="cirlcleDay" id="day6">S</div>
+                <div class="cirlcleDay" id="day7">D</div>
+            </div><br><br>
+
+            <input id="timeAlarme" type="time"><br><br>
+            <input class="button" id="valideAlarm" type="button" value="Valider" onclick="addAlarm()">
+            <input class="button" id="cancel" type="button" value="Annuler">
+        </div>
+        <div id="successAlarm" hidden>
+            <br><br>Votre alarmes à bien été créée <br><br>
+            <input class="button" id="cancel" type="button" value="Fermer">
+        </div>
+    </div>
+    
 </div>
     
     <div id="mySidenav" class="sidenav">
@@ -29,7 +53,7 @@
         <a href="#" id="btnAlarme">Alarmes</a>
         <a href="#" id="btnEven" >Evènements</a>
         <a href="#" id="btnAppa" >Appareils</a>
-        <a href="#" id="btnAbout" >A propos</a>
+        <a href="#" id="btnAbout" >A&nbsp;propos</a>
     </div>
 
     <div class="topbar" id="topbar">
@@ -43,6 +67,7 @@
                 <img class="planImg" src="plan1er.png" id="planImg" />
             </div>
         </div>
+        
         <div class="floorSlider" id="floorSlider">
 
         </div>

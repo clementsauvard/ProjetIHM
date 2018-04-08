@@ -187,6 +187,30 @@ function addAlarme(heure,tableDay){
     }
     $("<div class='entries'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
 }
+
+var alarmTab = [];
+
+function startCreationAlarm(){
+    for (var i = 1; i <= 7; i++)
+       $('#day' + i).removeClass('selectedCircle');
+    
+    $('#creationAlarm').show();
+    $('#successAlarm').hide();
+    $('#timeAlarme')[0].value = '';
+    
+    $('#popupAlarmStep1').fadeIn(200);
+}
+function addAlarm(){
+    var days = [false,false,false,false,false,false,false];
+    for(var i=1;i<=7;i++)
+        days[i-1] = $('#day'+i).hasClass('selectedCircle');        
+    
+    var hour = $('#timeAlarme')[0].value;
+    alarmTab.push([hour,days]);
+    $('#creationAlarm').hide();
+    $('#successAlarm').show();
+    
+}
 $(function () {
     $('.popup').hide();
     $("#floorSlider").slider({
@@ -220,6 +244,12 @@ $(function () {
         $('#popupAbout').fadeIn(200);
     });
     
+    $('.cirlcleDay').click(function (e){
+        if($(this).hasClass('selectedCircle'))
+             $(this).removeClass("selectedCircle");
+        else
+            $(this).addClass("selectedCircle");
+    })
+    
    addAlarme("08h00",[true,false,true,false,true,true,false]);
-
 });
