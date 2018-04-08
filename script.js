@@ -1,11 +1,14 @@
+var boolNav = false;
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     $('#floorSlider').hide();
+    boolNav = true;
 }
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     $('#floorSlider').show();
+    boolNav = false;
 }
 
 $("#floorSlider").slider({
@@ -187,9 +190,12 @@ function addAlarme(heure,tableDay){
     }
     $("<div class='entries'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
 }
-function hideAll() {
-    $('.popup').fadeOut(200);
-    closeNav();
+function hideAll(boolNav) {
+    if (boolNav) {
+        closeNav();
+    } else {
+        $('.popup').fadeOut(200);
+    }
 }
 
 $(function () {
@@ -226,7 +232,12 @@ $(function () {
     });
     
     $(".content").click(function(e) {
-        hideAll();
+        hideAll(boolNav);
+    });
+    $(".popup").click(function(e) {
+        if (boolNav){
+            hideAll(boolNav);
+        }
     });
     
     addAlarme("08h00",[true,false,true,false,true,true,false]);
