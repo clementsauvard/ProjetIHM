@@ -192,3 +192,51 @@ body {
     font-size: 13pt;
     font-weight: bold;
 }
+
+.miniAppa {
+    width: 40px;
+    height: 40px;
+}
+
+span {
+    
+}
+
+.nameAppa {
+    height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+.miniAppaDiv {
+    line-height: 50px;
+    float: left;
+    margin-left: 15px;
+}
+
+.appa {
+    overflow: hidden;
+    padding: 3px;
+    margin: 0 auto;
+    text-align: left;
+    width: 90%;    
+    height: 50px;    
+    line-height: 30px;
+    background-color: white;
+    border-radius: 5px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    margin-bottom: 5px;
+}
+
+.appaPlan {
+    position: absolute;
+    left:0%;
+    top: 5%;
+    background-image: url("images/appaDistrib.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+}

@@ -28,7 +28,7 @@ function switchFloor(event, ui) {
 
 var plan = $('#plan');
 var planImg = $('#planImg');
-
+var currentFloor;
 /////////////////////////////////////////////////////////////////////RDC
 var eleRDC = [];
 //Porte garage:
@@ -103,6 +103,7 @@ function showRDC() {
         e.show();
     });
      $('#floorLabel').html("Rez-de-chaussée");
+    currentFloor = eleRDC;
 }
 loadRDC();
 showRDC();
@@ -175,10 +176,18 @@ function show1er() {
         e.show();
     });
      $('#floorLabel').html("1er étage");
+    currentFloor = ele1er;
 }
 load1er();
 /////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////// Gestion Alarmes
+var alarmTab = [];
+var idAlarmI = 0;
+var alarmInEdit = -1;
+
 var day = ['L','M','M','J','V','S','D'];
+
 function addAlarmToList(alarm){
     var heure = alarm[0];
     var tableDay = alarm[1];
@@ -193,6 +202,7 @@ function addAlarmToList(alarm){
     }
     $("<div class='entries' id='alarmID"+alarmID+"' onclick='editAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
 }
+
 function removeAlarmToList(id){
     var listDivAlarm = $('#popupAlarmes').children();
     for(var i=1;i<listDivAlarm.length;i++){
@@ -202,9 +212,7 @@ function removeAlarmToList(id){
         }
     }
 }
-var alarmTab = [];
-var idAlarmI = 0;
-var alarmInEdit = -1;
+
 function startCreationAlarm(){
     for (var i = 1; i <= 7; i++)
        $('#day' + i).removeClass('selectedCircle');
@@ -235,6 +243,9 @@ function editAlarm(e){
 }
 
 function addAlarm(){
+    if( $('#timeAlarme')[0].value == '')
+        return;
+    
     var days = [false,false,false,false,false,false,false];
     for(var i=1;i<=7;i++)
         days[i-1] = $('#day'+i).hasClass('selectedCircle');        
@@ -255,6 +266,7 @@ function addAlarm(){
     $('#successAlarm').show();
     
 }
+
 function hideAll(boolNav) {
     if (boolNav) {
         closeNav();
@@ -262,6 +274,27 @@ function hideAll(boolNav) {
         $('.popup').fadeOut(200);
     }
 }
+/////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////// Gestion Appareils
+function addAppa(a) {
+    var newAppa;
+    if (a == "appaDistrib") {        
+        newAppa = $("<div id='appaPlanDistrib'>").attr({
+            'style': "position: absolute;left:0%; top: 5%;background-image: url('images/appaDistrib.png');background-size: contain;background-repeat: no-repeat; width: 50px; height: 50px;"
+        });
+    }
+    currentFloor.push(newAppa);
+    newAppa.draggable({stop : function (e,ui){
+        console.log(ui);
+        var newLeft = (ui.position.left / $('#plan').width())*100;
+        var newTop = (ui.position.top / $('#plan').height())*100;
+        console.log(newLeft + " : " + newTop);
+        $(this).css({'left': newLeft+"%",'top': newTop+"%"});
+    }});
+    newAppa.appendTo(plan);
+}
+/////////////////////////////////////////////////////////////////////
 
 $(function () {
     $('.popup').hide();
@@ -301,13 +334,12 @@ $(function () {
              $(this).removeClass("selectedCircle");
         else
             $(this).addClass("selectedCircle");
-    })
+    });  
     
-    
-
     $(".content").click(function(e) {
         hideAll(boolNav);
     });
+    
     $(".popup").click(function(e) {
         if (boolNav){
             hideAll(boolNav);
