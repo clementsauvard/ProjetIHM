@@ -107,6 +107,51 @@ showRDC();
 /////////////////////////////////////////////////////////////////////1er étage
 var ele1er = [];
 
+//Fenêtre pièce a gauche de l'escalier
+ele1er.push($("<div id='fenLeftEsc1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 10%; top: 33%; left: 0%; background-color: grey;"
+}).hide());
+
+//Fenêtre pièce milieu à gauche
+ele1er.push($("<div id='fenLeftMid1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 51%; left: 0%; background-color: grey;"
+}).hide());
+
+//Fenêtre pièce milieu à droite
+ele1er.push($("<div id='fenRightMid1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 51%; left: 98%; background-color: grey;"
+}).hide());
+
+//Fenêtre pièce en bas à gauche
+ele1er.push($("<div id='fenBotLeft1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 15%; top: 77%; left: 0%; background-color: grey;"
+}).hide());
+
+//Fenêtre pièce en bas à Droite
+ele1er.push($("<div id='fenBotRight1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 10%; top: 80%; left: 98%; background-color: grey;"
+}).hide());
+
+//Porte pièce milieu en bas
+ele1er.push($("<div id='doorBottomMid1er'>").attr({
+    'style': "position: absolute; width: 8%; height: 1.3%; top: 70%; left: 41%; background-color: grey;"
+}).hide());
+
+//Porte pièce milieu à droite
+ele1er.push($("<div id='doorMidRight1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 7%; top: 55%; left: 55%; background-color: grey;"
+}).hide());
+
+//Porte pièce milieu à gauche
+ele1er.push($("<div id='doorMidLeft1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 7%; top: 55%; left: 34%; background-color: grey;"
+}).hide());
+
+//Porte pièce en bas à droite
+ele1er.push($("<div id='doorBotRight1er'>").attr({
+    'style': "position: absolute; width: 1.9%; height: 7%; top: 81%; left: 55%; background-color: grey;"
+}).hide());
+
 function load1er() {
     ele1er.forEach(function (e) {
         e.appendTo(plan);
