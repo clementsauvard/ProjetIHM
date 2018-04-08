@@ -279,17 +279,14 @@ function hideAll(boolNav) {
 ///////////////////////////////////////////////////////////////////// Gestion Appareils
 function addAppa(a) {
     var newAppa;
-    if (a == "appaDistrib") {        
-        newAppa = $("<div id='appaPlanDistrib'>").attr({
-            'style': "position: absolute;left:0%; top: 5%;background-image: url('images/appaDistrib.png');background-size: contain;background-repeat: no-repeat; width: 50px; height: 50px;"
-        });
-    }
+    newAppa = $("<div id='"+a+"Plan'>").attr({
+        'style': "position: absolute;left:0%; top: 5%;background-image: url('images/"+a+".png');background-size: contain;background-repeat: no-repeat; width: 50px; height: 50px;"
+    });
+
     currentFloor.push(newAppa);
     newAppa.draggable({stop : function (e,ui){
-        console.log(ui);
         var newLeft = (ui.position.left / $('#plan').width())*100;
         var newTop = (ui.position.top / $('#plan').height())*100;
-        console.log(newLeft + " : " + newTop);
         $(this).css({'left': newLeft+"%",'top': newTop+"%"});
     }});
     newAppa.appendTo(plan);
