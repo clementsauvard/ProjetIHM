@@ -1,9 +1,11 @@
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
+    $('#floorSlider').hide();
 }
 
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
+    $('#floorSlider').show();
 }
 
 $("#floorSlider").slider({
