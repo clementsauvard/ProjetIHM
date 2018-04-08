@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" charset="utf-8">
-<link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="jquery-ui.css" />
 </head>
 <body>
-
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">Alarmes</a>
-  <a href="#">Evènements</a>
-  <a href="#">Appareils</a>
-  <a href="#">A propos</a>
-</div>
-    
-<div class="topbar">
-    <span style="font-size:30px;cursor:pointer; color:white" onclick="openNav()">&#9776; open</span>
-</div>
-    
-<div class="content">
-    <div class="planContainer">
-        <img src="planrdc.png" class="plan"/>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">Alarmes</a>
+        <a href="#">Evènements</a>
+        <a href="#">Appareils</a>
+        <a href="#">A propos</a>
     </div>
-    
-    <div class="floorSlider"><input type="range" min="1" max="3" value="1" class="slider" id="myRange"></div>
-</div>
 
-<script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-    }
+    <div class="topbar">
+        <span style="font-size:30px;cursor:pointer; color:white" onclick="openNav()">&#9776; Smart Morning</span>
+    </div>
 
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-    }
-</script>
-     
+    <div class="content">
+        <div class="planContainer">
+            <div class="plan" id="plan">
+                <img class="planImg" src="plan1er.png" id="planImg" />
+                <div class="rec" id="rec1"></div>
+            </div>
+        </div>
+        <div class="floorSlider" id="floorSlider">
+
+        </div>
+        
+        <div class="floorLabel" id="floorLabel">
+            Rez-de-chaussée
+        </div>
+    </div>    
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+    <script src="jquery.ui.touch-punch.js"></script>
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>
