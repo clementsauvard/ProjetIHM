@@ -98,7 +98,7 @@ function hideRDC() {
 
 function showRDC() {
     planImg.siblings().hide();
-    planImg.attr("src", "planrdc.png");
+    planImg.attr("src", "images/planrdc.png");
 
     eleRDC.forEach(function (e) {
         e.show();
@@ -172,7 +172,7 @@ function hide1er() {
 
 function show1er() {
     planImg.siblings().hide();
-    planImg.attr("src", "plan1er.png");
+    planImg.attr("src", "images/plan1er.png");
     ele1er.forEach(function (e) {
         e.show();
     });
