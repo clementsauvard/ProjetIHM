@@ -547,14 +547,6 @@ function appaChauffageSuccess(){
 /////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////// Création event volet
-var degreeVolet = 20;
-var IDAlarmappaVolet = -1;
-var tabDayappaVolet = [false,false,false,false,false,false,false];
-var hourappaVolet = "00:00";
-var decalageappaVolet = "+00:00";
-var sentenceappaVolet = "";
-var ouvrirfermer = "Fermer";
-
 var listappaVolet = [];
 var currentappaVolet = [];
 var idappaVolet = 0;
@@ -562,7 +554,7 @@ var idappaVolet = 0;
 function appaVoletCreateEvent(idAppa){
     for (var i = 1; i <= 7; i++)
         $('#dayEvent' + i).removeClass("selectedCircle")
-    for (var i = 1; i <= 9; i++) {
+    for (var i = 1; i <= 10; i++) {
         $('#cvolet' + i)[0].checked = false;
     }
     if (idAppa == "") {
@@ -592,7 +584,7 @@ function appaVoletCreateEvent(idAppa){
                 $('#dayEvent' + i).addClass("selectedCircle")
         }
         
-        for (var i = 1; i <= 9; i++) {
+        for (var i = 1; i <= 10; i++) {
             $('#cvolet' + i)[0].checked = currentappaVolet['tabVolet'][i - 1];
         }
     }
@@ -603,7 +595,7 @@ function appaVoletCreateEvent(idAppa){
 }
 
 function step2Volet(){
-    for (var i = 1; i <= 9; i++) {
+    for (var i = 1; i <= 10; i++) {
         currentappaVolet['tabVolet'][i - 1] = $('#cvolet' + i)[0].checked;
     }
     hideAll();
