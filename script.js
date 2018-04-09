@@ -14,7 +14,6 @@ function closeNav() {
 
 $("#floorSlider").slider({
     change: function (event, ui) {
-        console.log(event);
     }
 });
 
@@ -627,7 +626,7 @@ function appaVoletSuccess(){
         var dayStr = ""
         var nbTrue = 0;
         for(var i=0;i<7;i++){
-           if(tabDayappaVolet[i]){
+           if(currentappaVolet['tabDay'][i]){
                dayStr += day[i] + " ";
                nbTrue++
            }
