@@ -7,15 +7,19 @@
 </head>
 <body>
 <div id="pop">
+    <!-- Pop up Alarmes -->
     <div class="popup" id="popupAlarmes">
         <div class="entries"  onclick="startCreationAlarm()">Ajouter une alarme</div>
         
     </div>
 
+    <!-- Pop up events -->
     <div class="popup" id="popupEvents">
-        Evènements
+       <div class="entriesEvent"  onclick="">Ouvrir les volets<br>Avec l'alarme 1</div>
+        <div class="entriesEvent"  onclick="">Ouvrir les volets<br>Avec l'alarme 1</div>        
     </div>
 
+    <!-- Pop up liste appareils -->
     <div class="popup" id="popupAppas">
         <div class="appa" id="appaDistrib" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaDistrib.png" class="miniAppa"/></div><div class="miniAppaDiv">Distributeur nourritures</div></div>
         <div class="appa" id="appaCafe" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaCafe.png" class="miniAppa"/></div><div class="miniAppaDiv">Cafetière</div></div>
@@ -23,12 +27,15 @@
         <div class="appa" id="appaRadia" onclick=""><div class="miniAppaDiv"><img src="images/appaRadia.png" class="miniAppa"/></div><div class="miniAppaDiv">Chauffage</div></div>
         <div class="appa" id="appaArroseur" onclick=""><div class="miniAppaDiv"><img src="images/appaArroseur.png" class="miniAppa"/></div><div class="miniAppaDiv">Arroseur jardin</div></div>
     </div>
-
+    
+    <!-- Pop up about -->
     <div class="popup" id="popupAbout">
         Entièrement et uniquement codé par Cyril Alias Sklinay <br> Aldé reviens stp
     </div>
     
+    <!-- Pop up création alarmes -->
     <div class="popup" id="popupAlarmStep1">
+        <!-- sous popup détails alarme -->
         <div id="creationAlarm">
             <div class="circleList">
                 <div class="cirlcleDay" id="day1">L</div>
@@ -39,18 +46,57 @@
                 <div class="cirlcleDay" id="day6">S</div>
                 <div class="cirlcleDay" id="day7">D</div>
             </div><br><br>
-
             <input id="timeAlarme" type="time"><br><br>
             <input class="button" id="valideAlarm" type="button" value="Valider" onclick="addAlarm()">
             <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
         </div>
         
+        <!-- sous popup succes création alarmes --> 
         <div id="successAlarm" hidden>
             <br><br>Votre alarmes à bien été créée <br><br>
             <input class="button" id="cancel" type="button" value="Fermer" onclick="hideAll()">
         </div>
     </div>
     
+    <!-- Pop up création event distributeur -->
+    <div class="popup" id="popupDistribStep1">
+        <h3>Quantité de nourriture à déverser ?</h3>
+        <input class="quantNourri" type="text" placeholder="100" > <span class="gramme">g</span><br><br>
+          <input class="button" id="valideAlarm" type="button" value="Valider" onclick="step2Distrib()">
+          <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
+    </div>
+    
+    <div class="popup" id="popupDistribStep2">
+        <h3>Tous les jours Xg de nourritures sera déversé à xxhxx</h3><br>
+          <input class="button" id="valideAlarm" type="button" value="Valider" onclick="createDistrib()">
+          <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
+    </div>
+    
+    <div class="popup" id="popupChoixHeure">
+        <div id="choixHeurestep1" >
+            <h3>A quelle heure voulez vous que l'évènement se déclenche ?</h3>
+              <input class="largerButton" id="withAlarm" type="button" value="Avec une alarme" onclick="withAlarm()"><br><br>
+              <input class="largerButton" id="atFixHour" type="button" value="À heures fixes" onclick="atFixHour()">
+        </div>
+        <div id="choixHeurestepAtFixHour" hidden>
+            <h3>Choisissez l'heure et les jours</h3>
+            <div class="circleList">
+                <div class="cirlcleDay" id="day1">L</div>
+                <div class="cirlcleDay" id="day2">M</div>
+                <div class="cirlcleDay" id="day3">M</div>
+                <div class="cirlcleDay" id="day4">J</div>
+                <div class="cirlcleDay" id="day5">V</div>
+                <div class="cirlcleDay" id="day6">S</div>
+                <div class="cirlcleDay" id="day7">D</div>
+            </div>
+            <br><br>
+            <input id="timeAlarme" type="time"><br><br>
+            <input class="largerButton" id="withAlarm" type="button" value="Valider" onclick="valideAtFixHour()"><br><br>
+        </div>
+        <div id="choixHeurestepWithAlarm" hidden>
+            <h3>Choisissez une alarme</h3>
+        </div>
+    </div>
 </div>
     
     <div id="mySidenav" class="sidenav">
@@ -58,7 +104,7 @@
         <a href="#" id="btnAlarme">Alarmes</a>
         <a href="#" id="btnEven" >Evènements</a>
         <a href="#" id="btnAppa" >Appareils</a>
-        <a href="#" id="btnAbout" >A&nbsp;propos</a>
+        <a href="#" id="btnAbout">A&nbsp;propos</a>
     </div>
 
     <div class="topbar" id="topbar">

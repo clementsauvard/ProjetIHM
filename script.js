@@ -1,4 +1,5 @@
 var boolNav = false;
+var boolOpenEvent = false;
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     $('#floorSlider').hide();
@@ -200,17 +201,16 @@ function addAlarmToList(alarm){
             line += "<span class='dayN'>"+ day[i] +"</span> ";
         }
     }
+        
+    $("<div class='entries' id='choseAlarmID"+alarmID+"' onclick='selectAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#choixHeurestepWithAlarm'));
+    
     $("<div class='entries' id='alarmID"+alarmID+"' onclick='editAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
+
 }
 
 function removeAlarmToList(id){
-    var listDivAlarm = $('#popupAlarmes').children();
-    for(var i=1;i<listDivAlarm.length;i++){
-        if(listDivAlarm[i].id == "alarmID"+id){
-            listDivAlarm[i].remove();
-            break;
-        }
-    }
+    $('#alarmID'+id).remove();
+    $('#choseAlarmID'+id).remove();
 }
 
 function startCreationAlarm(){
@@ -279,7 +279,7 @@ function hideAll(boolNav) {
 ///////////////////////////////////////////////////////////////////// Gestion Appareils
 function addAppa(a) {
     var newAppa;
-    newAppa = $("<div id='"+a+"Plan'>").attr({
+    newAppa = $("<div id='"+a+"Plan' onclick='"+a+"CreateEvent()'>").attr({
         'style': "position: absolute;left:0%; top: 5%;background-image: url('images/"+a+".png');background-size: contain;background-repeat: no-repeat; width: 50px; height: 50px;"
     });
 
@@ -291,8 +291,43 @@ function addAppa(a) {
     }});
     newAppa.appendTo(plan);
 }
+function appaDistribCreateEvent(){
+     boolOpenEvent = true;
+     hideAll();
+     $('#popupDistribStep1').fadeIn(200, function (){ boolOpenEvent = false; });
+}
+
+function step2Distrib(){
+    hideAll();
+    startChooseHour();
+}
+
+function appaCafeCreateEvent(){
+    boolOpenEvent = true;
+    alert("test");
+}
+
+function startChooseHour(){    
+    $('#choixHeurestep1').siblings().hide();
+    $('#choixHeurestep1').show();
+    $('#popupChoixHeure').fadeIn(200);
+}
+
+function withAlarm(){
+    $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeurestepWithAlarm').fadeIn(200); });    
+}
+
+function atFixHour(){
+    $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeurestepAtFixHour').fadeIn(200); });    
+}
+
 /////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////// Gestion évènements
+function addEventToList(){
+    
+}
+/////////////////////////////////////////////////////////////////////
 $(function () {
     $('.popup').hide();
     $("#floorSlider").slider({
@@ -334,14 +369,14 @@ $(function () {
     });  
     
     $(".content").click(function(e) {
-        hideAll(boolNav);
+        if(!boolOpenEvent)
+            hideAll(boolNav);
     });
     
     $(".popup").click(function(e) {
-        if (boolNav){
+        if (boolNav && !boolOpenEvent){
             hideAll(boolNav);
         }
     });
-    
 
 });
