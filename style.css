@@ -153,20 +153,6 @@ body {
     user-select: none;
 }
 
-.cirlcleDay {
-    float: left;
-    width: 25px;
-    height: 25px;
-    font-size: 13pt;
-    font-weight: bold;
-    line-height:25px;
-    margin-right: 5px;
-    border-radius: 30px;
-    border-color: lightgrey;
-    border-width: 2px;
-    border-style: solid;
-    user-select: none;
-}
 .selectedCircle {
      border-color: dodgerblue;
 }
@@ -413,4 +399,12 @@ hr {
 
 #popupVoletStep2 {
     height: 200px;
+}
+
+#popupChauffageStep1 {
+    height: 150px;
+}
+
+#popupVoletStep1 {
+    height: 330px;
 }

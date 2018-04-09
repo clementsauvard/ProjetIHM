@@ -19,10 +19,10 @@
 
     <!-- Pop up liste appareils -->
     <div class="popup" id="popupAppas">
-        <div class="appa" id="appaDistrib" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaDistrib.png" class="miniAppa"/></div><div class="miniAppaDiv">Distributeur nourritures</div></div>
+        <div class="appa" id="appaDistrib" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaDistrib.png" class="miniAppa"/></div><div class="miniAppaDiv">Distrib. nourritures</div></div>
         <div class="appa" id="appaCafe" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaCafe.png" class="miniAppa"/></div><div class="miniAppaDiv">Cafetière</div></div>
-        <div class="appa" id="appaVolet" onclick="appaVoletCreateEvent()"><div class="miniAppaDiv"><img src="images/appaVolet.png" class="miniAppa"/></div><div class="miniAppaDiv">Volet</div></div>        
-        <div class="appa" id="appaRadia" onclick="appaChauffageCreateEvent()"><div class="miniAppaDiv"><img src="images/appaRadia.png" class="miniAppa"/></div><div class="miniAppaDiv">Chauffage</div></div>
+        <div class="appa" id="appaVolet" onclick="appaVoletCreateEvent('')"><div class="miniAppaDiv"><img src="images/appaVolet.png" class="miniAppa"/></div><div class="miniAppaDiv">Volet</div></div>        
+        <div class="appa" id="appaRadia" onclick="appaChauffageCreateEvent('')"><div class="miniAppaDiv"><img src="images/appaRadia.png" class="miniAppa"/></div><div class="miniAppaDiv">Chauffage</div></div>
     </div>
     
     <!-- Pop up about -->
@@ -93,15 +93,15 @@
     <div class="popup" id="popupVoletStep1">
         <h3>Choississez les volets</h3>
         <div class="listVolet">
-         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet cuisine</label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet garage</label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet salon</label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet salle de jeu</label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet toilette</label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet palier </label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet bureau</label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet chambre</label></div>
-         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet salle de bain</label></div>        
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet1">RDC Volet cuisine</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet2">RDC Volet garage</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet3">RDC Volet salon</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet4">RDC Volet salle de jeu</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet5">RDC Volet toilette</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet6">1er Volet palier </label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet7">1er Volet bureau</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet8">1er Volet chambre</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value" id="cvolet9">1er Volet salle de bain</label></div>        
          <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet panderie</label></div>
         </div><br>
           <input class="button" id="valideVolet" type="button" value="Valider" onclick="step2Volet()">

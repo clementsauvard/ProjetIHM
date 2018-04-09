@@ -277,7 +277,7 @@ function hideAll(boolNav) {
 ///////////////////////////////////////////////////////////////////// Gestion Appareils
 function addAppa(a) {
     var newAppa;
-    newAppa = $("<div id='"+a+"Plan' onclick='"+a+"CreateEvent()'>").attr({
+    newAppa = $("<div id='"+a+"Plan' onclick='"+a+"CreateEvent(\"\")'>").attr({
         'style': "position: absolute;left:0%; top: 5%;background-image: url('images/"+a+".png');background-size: contain;background-repeat: no-repeat; width: 50px; height: 50px;"
     });
 
@@ -287,7 +287,7 @@ function addAppa(a) {
              var newLeft = (ui.originalPosition.left / $('#plan').width())*100;
              var newTop = (ui.originalPosition.top / $('#plan').height())*100;
              $(this).css({'left': newLeft+"%",'top': newTop+"%"});
-             window[a + "CreateEvent"]();
+             window[a + "CreateEvent"]("");
         }else{
             var newLeft = (ui.position.left / $('#plan').width())*100;
             var newTop = (ui.position.top / $('#plan').height())*100;
@@ -298,14 +298,44 @@ function addAppa(a) {
     newAppa.appendTo(plan);
 }
 var currentEvent = "";
+var boolEdit = false;
+
 ///////////////////////////////////////////////////////////////////// Création event distributeur nourriture animaux
-var quantiNourri = 0;
-var IDAlarmappaDistrib = -1;
-var tabDayappaDistrib = [false,false,false,false,false,false,false];
-var hourappaDistrib = "00:00";
-var decalageappaDistrib = "+00:00";
-var sentenceappaDistrib = "";
-function appaDistribCreateEvent(){
+var listappaDistrib = [];
+var currentappaDistrib = [];
+var idappaDistri = 0;
+function appaDistribCreateEvent(idAppa){
+    for (var i = 1; i <= 7; i++) 
+        $('#dayEvent' + i).removeClass("selectedCircle")
+    if(idAppa == ""){
+        boolEdit = false;
+        currentappaDistrib = [];
+        currentappaDistrib['ID'] = 0;
+        currentappaDistrib['IDAlarm'] = -1;
+        currentappaDistrib['tabDay'] = [false, false, false, false, false, false, false];
+        currentappaDistrib['hour'] = "00:00";
+        currentappaDistrib['sdecalage'] = "+";
+        currentappaDistrib['hdecalage'] = "00:00";
+        currentappaDistrib['sentence'] = "";
+        currentappaDistrib['quantiNourri'] = 0;
+        $('.quantNourri')[0].value = "";
+        $('#plusmoins')[0].value = "+";
+        $('#timeAlarmeEvent')[0].value = "00:00";
+        $('#decalageHeure')[0].value = "00:00";
+    }else{
+        boolEdit = true;
+        currentappaDistrib = listappaDistrib[idAppa];
+        $('.quantNourri')[0].value = currentappaDistrib['quantiNourri'];
+        $('#timeAlarmeEvent')[0].value = currentappaDistrib['hour'];
+        $('#plusmoins')[0].value = currentappaDistrib['sdecalage'];
+        $('#decalageHeure')[0].value = currentappaDistrib['hdecalage'];
+        for (var i = 1; i <= 7; i++) {
+            if (currentappaDistrib['tabDay'][i-1])
+                $('#dayEvent' + i).addClass("selectedCircle")
+        }
+        
+    }
+    
      currentEvent = "appaDistrib";
      boolOpenEvent = true;
      hideAll();
@@ -313,47 +343,77 @@ function appaDistribCreateEvent(){
 }
 
 function step2Distrib(){
-    quantiNourri = parseInt($('.quantNourri')[0].value==""?0:$('.quantNourri')[0].value);
+    currentappaDistrib['quantiNourri'] = parseInt($('.quantNourri')[0].value==""?0:$('.quantNourri')[0].value);
     hideAll();
     startChooseHour();
 }
 function appaDistribSuccess(){
-    sentenceappaDistrib = "";
-    if(IDAlarmappaDistrib > -1){
+    currentappaDistrib['sentence'] = "";
+    if(currentappaDistrib['IDAlarm'] > -1){
         //Phrase avec alarme
-        sentenceappaDistrib += "Distribuer nourriture<br>Avec l'alarme " + IDAlarmappaDistrib + " (" + decalageappaDistrib + ")";
+        currentappaDistrib['sentence'] += "Distribuer nourriture<br>Avec l'alarme " + currentappaDistrib['IDAlarm'] + " (" + currentappaDistrib['sdecalage'] + currentappaDistrib['hdecalage'] + ")";
     }else{
         //Phrase avec heure fixée
-        sentenceappaDistrib += "Distribuer nourriture<br>";
-        var dayStr = ""
+        currentappaDistrib['sentence'] += "Distribuer nourriture<br>";
+        var dayStr = "";
         var nbTrue = 0;
         for(var i=0;i<7;i++){
-           if(tabDayappaDistrib[i]){
+           if(currentappaDistrib['tabDay'][i]){
                dayStr += day[i] + " ";
-               nbTrue++
+               nbTrue++;
            }
         }
         if(nbTrue == 7){
-            sentenceappaDistrib += "Tous les jours à " + hourappaDistrib;
+            currentappaDistrib['sentence'] += "Tous les jours à " + currentappaDistrib['hour'];
         }else
-            sentenceappaDistrib += dayStr + " à " + hourappaDistrib;
+            currentappaDistrib['sentence'] += dayStr + " à " + currentappaDistrib['hour'];
     }
     
-    $('#sentenceSuccess')[0].innerHTML = sentenceappaDistrib;
+    $('#sentenceSuccess')[0].innerHTML = currentappaDistrib['sentence'];
     hideAll();
     $('#popUpSuccess').fadeIn(200);
+    if(!boolEdit){
+        idappaDistri++;
+        currentappaDistrib['ID'] = idappaDistri;
+        listappaDistrib[idappaDistri] = currentappaDistrib;        
+    }
     updateListEvent();
 }
 /////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////// Création event cafetière
-var IDAlarmappaCafe = -1;
-var tabDayappaCafe = [false,false,false,false,false,false,false];
-var hourappappaCafe = "00:00";
-var decalageappappaCafe = "+00:00";
-var sentenceappaCafe = "";
+var listappaCafe = [];
+var currentappaCafe = [];
+var idappaCafe = 0;
 
-function appaCafeCreateEvent(){
+function appaCafeCreateEvent(idAppa){
+    for (var i = 1; i <= 7; i++)
+        $('#dayEvent' + i).removeClass("selectedCircle")
+    if (idAppa == "") {
+        boolEdit = false;
+        currentappaCafe = [];
+        currentappaCafe['ID'] = 0;
+        currentappaCafe['IDAlarm'] = -1;
+        currentappaCafe['tabDay'] = [false, false, false, false, false, false, false];
+        currentappaCafe['hour'] = "00:00";
+        currentappaCafe['sdecalage'] = "+";
+        currentappaCafe['hdecalage'] = "00:00";
+        currentappaCafe['sentence'] = "";
+        $('#plusmoins')[0].value = "+";
+        $('#timeAlarmeEvent')[0].value = "00:00";
+        $('#decalageHeure')[0].value = "00:00";
+    } else {
+        boolEdit = true;
+        currentappaCafe = listappaCafe[idAppa];
+        $('#timeAlarmeEvent')[0].value = currentappaCafe['hour'];
+        $('#plusmoins')[0].value = currentappaCafe['sdecalage'];
+        $('#decalageHeure')[0].value = currentappaCafe['hdecalage'];
+        for (var i = 1; i <= 7; i++) {
+            if (currentappaCafe['tabDay'][i - 1])
+                $('#dayEvent' + i).addClass("selectedCircle")
+        }
+
+    }
      currentEvent = "appaCafe";
      boolOpenEvent = true;
     hideAll();
@@ -362,44 +422,77 @@ function appaCafeCreateEvent(){
 }
 
 function appaCafeSuccess(){
-    sentenceappaCafe = "";
-    if(IDAlarmappaCafe > -1){
+    currentappaCafe['sentence'] = "";
+    if(currentappaCafe['IDAlarm'] > -1){
         //Phrase avec alarme
-        sentenceappaCafe += "Faire couler café<br>Avec l'alarme " + IDAlarmappaCafe + " (" + decalageappaCafe + ")";
+        currentappaCafe['sentence'] += "Faire couler café<br>Avec l'alarme " + currentappaCafe['IDAlarm'] + "(" + currentappaCafe['sdecalage'] + currentappaCafe['hdecalage'] + ")";
     }else{
         //Phrase avec heure fixée
-        sentenceappaCafe += "Faire couler café<br>";
-        var dayStr = ""
+        currentappaCafe['sentence'] += "Faire couler café<br>";
+        var dayStr = "";
         var nbTrue = 0;
         for(var i=0;i<7;i++){
-           if(tabDayappaCafe[i]){
+           if(currentappaCafe['tabDay'][i]){
                dayStr += day[i] + " ";
-               nbTrue++
+               nbTrue++;
            }
         }
         if(nbTrue == 7){
-            sentenceappaCafe += "Tous les jours à " + hourappaCafe;
+            currentappaCafe['sentence'] += "Tous les jours à " + currentappaCafe['hour'];
         }else
-            sentenceappaCafe += dayStr + " à " + hourappaCafe;
+            currentappaCafe['sentence'] += dayStr + " à " + currentappaCafe['hour'];
     }
     
-    $('#sentenceSuccess')[0].innerHTML = sentenceappaCafe;
+    $('#sentenceSuccess')[0].innerHTML = currentappaCafe['sentence'];
     hideAll();
-    $('#popUpSuccess').fadeIn(200);
+    $('#popUpSuccess').fadeIn(200);   
+    if(!boolEdit){
+        idappaCafe++;
+        currentappaCafe['ID'] = idappaCafe;
+        listappaCafe[idappaCafe] = currentappaCafe;        
+    }
     updateListEvent();
 }
 
 /////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////// Création event chauffage
-var degreeChauffage = 20;
-var IDAlarmappaChauffage = -1;
-var tabDayappaChauffage = [false,false,false,false,false,false,false];
-var hourappaChauffage = "00:00";
-var decalageappaChauffage = "+00:00";
-var sentenceappaChauffage = "";
+var listappaChauffage = [];
+var currentappaChauffage = [];
+var idappaChauffage = 0;
 
-function appaChauffageCreateEvent(){
+function appaChauffageCreateEvent(idAppa){
+    for (var i = 1; i <= 7; i++)
+        $('#dayEvent' + i).removeClass("selectedCircle")
+    if (idAppa == "") {
+        boolEdit = false;
+        currentappaChauffage = [];
+        currentappaChauffage['ID'] = 0;
+        currentappaChauffage['IDAlarm'] = -1;
+        currentappaChauffage['tabDay'] = [false, false, false, false, false, false, false];
+        currentappaChauffage['hour'] = "00:00";
+        currentappaChauffage['sdecalage'] = "+";
+        currentappaChauffage['hdecalage'] = "00:00";
+        currentappaChauffage['sentence'] = "";
+        currentappaChauffage['degree'] = "0";
+        $('#plusmoins')[0].value = "+";
+        $('#timeAlarmeEvent')[0].value = "00:00";
+        $('#decalageHeure')[0].value = "00:00";
+        $('.degreeChauffage')[0].value = "";
+    } else {
+        boolEdit = true;
+        currentappaChauffage = listappaChauffage[idAppa];
+        $('#timeAlarmeEvent')[0].value = currentappaChauffage['hour'];
+        $('#plusmoins')[0].value = currentappaChauffage['sdecalage'];
+        $('#decalageHeure')[0].value = currentappaChauffage['hdecalage'];
+        $('.degreeChauffage')[0].value = currentappaChauffage['degree'];
+        
+        for (var i = 1; i <= 7; i++) {
+            if (currentappaChauffage['tabDay'][i - 1])
+                $('#dayEvent' + i).addClass("selectedCircle")
+        }
+
+    }
      currentEvent = "appaChauffage";
      boolOpenEvent = true;
      hideAll();
@@ -407,7 +500,7 @@ function appaChauffageCreateEvent(){
 }
 
 function step2Chauffage(){
-    degreeChauffage = parseInt($('.degreeChauffage')[0].value==""?0:$('.degreeChauffage')[0].value);
+    currentappaChauffage['degree'] = parseInt($('.degreeChauffage')[0].value==""?0:$('.degreeChauffage')[0].value);
     hideAll();
     setTimeout(function (){$('#popupChauffageStep2').fadeIn(200)},200); 
 }
@@ -419,30 +512,35 @@ function step3Chauffage(){
 }
 
 function appaChauffageSuccess(){
-    sentenceappaChauffage = "";
-    if(IDAlarmappaChauffage > -1){
+    currentappaChauffage['sentence'] = "";
+    if(currentappaChauffage['IDAlarm'] > -1){
         //Phrase avec alarme
-        sentenceappaChauffage += "Démarrer le chauffage<br>Avec l'alarme " + IDAlarmappaChauffage + " (" + decalageappaChauffage + ")";
+        currentappaChauffage['sentence'] += "Démarrer le chauffage<br>Avec l'alarme " + currentappaChauffage['IDAlarm'] + "(" + currentappaChauffage['sdecalage'] + currentappaChauffage['hdecalage'] + ")";
     }else{
         //Phrase avec heure fixée
-        sentenceappaChauffage += "Démarrer le chauffage<br>";
-        var dayStr = ""
+        currentappaChauffage['sentence'] += "Démarrer le chauffage<br>";
+        var dayStr = "";
         var nbTrue = 0;
         for(var i=0;i<7;i++){
-           if(tabDayappaChauffage[i]){
+           if(currentappaChauffage['tabDay'][i]){
                dayStr += day[i] + " ";
-               nbTrue++
+               nbTrue++;
            }
         }
         if(nbTrue == 7){
-            sentenceappaChauffage += "Tous les jours à " + hourappaChauffage;
+            currentappaChauffage['sentence'] += "Tous les jours à " + currentappaChauffage['hour'];
         }else
-            sentenceappaChauffage += dayStr + " à " + hourappaChauffage;
+            currentappaChauffage['sentence'] += dayStr + " à " + currentappaChauffage['hour'];
     }
     
-    $('#sentenceSuccess')[0].innerHTML = sentenceappaChauffage;
+    $('#sentenceSuccess')[0].innerHTML = currentappaChauffage['sentence'];
     hideAll();
     $('#popUpSuccess').fadeIn(200);
+    if(!boolEdit){
+        idappaChauffage++;
+        currentappaChauffage['ID'] = idappaChauffage;
+        listappaChauffage[idappaChauffage] = currentappaChauffage;        
+    }
     updateListEvent();
 }
 /////////////////////////////////////////////////////////////////////
@@ -455,7 +553,48 @@ var hourappaVolet = "00:00";
 var decalageappaVolet = "+00:00";
 var sentenceappaVolet = "";
 var ouvrirfermer = "Fermer";
-function appaVoletCreateEvent(){
+
+var listappaVolet = [];
+var currentappaVolet = [];
+var idappaVolet = 0;
+
+function appaVoletCreateEvent(idAppa){
+    for (var i = 1; i <= 7; i++)
+        $('#dayEvent' + i).removeClass("selectedCircle")
+    for (var i = 1; i <= 9; i++) {
+        $('#cvolet' + i)[0].checked = false;
+    }
+    if (idAppa == "") {
+        boolEdit = false;
+        currentappaVolet = [];
+        currentappaVolet['ID'] = 0;
+        currentappaVolet['IDAlarm'] = -1;
+        currentappaVolet['tabDay'] = [false, false, false, false, false, false, false];
+        currentappaVolet['hour'] = "00:00";
+        currentappaVolet['sdecalage'] = "+";
+        currentappaVolet['hdecalage'] = "00:00";
+        currentappaVolet['sentence'] = "";
+        currentappaVolet['ouvrirfermer'] = "";
+        currentappaVolet['tabVolet'] = [false,false,false,false,false,false,false,false,false];
+        $('#plusmoins')[0].value = "+";
+        $('#timeAlarmeEvent')[0].value = "00:00";
+        $('#decalageHeure')[0].value = "00:00";
+    } else {
+        boolEdit = true;
+        currentappaVolet = listappaVolet[idAppa];
+        $('#timeAlarmeEvent')[0].value = currentappaVolet['hour'];
+        $('#plusmoins')[0].value = currentappaVolet['sdecalage'];
+        $('#decalageHeure')[0].value = currentappaVolet['hdecalage'];
+        
+        for (var i = 1; i <= 7; i++) {
+            if (currentappaVolet['tabDay'][i - 1])
+                $('#dayEvent' + i).addClass("selectedCircle")
+        }
+        
+        for (var i = 1; i <= 9; i++) {
+            $('#cvolet' + i)[0].checked = currentappaVolet['tabVolet'][i - 1];
+        }
+    }
      currentEvent = "appaVolet";
      boolOpenEvent = true;
      hideAll();
@@ -463,32 +602,35 @@ function appaVoletCreateEvent(){
 }
 
 function step2Volet(){
+    for (var i = 1; i <= 9; i++) {
+        currentappaVolet['tabVolet'][i - 1] = $('#cvolet' + i)[0].checked;
+    }
     hideAll();
     setTimeout(function (){$('#popupVoletStep2').fadeIn(200)},200); 
 }
 
 function step3OuvrirVolet(){
-    ouvrirfermer = "Ouvrir";
+    currentappaVolet['ouvrirfermer'] = "Ouvrir";
     hideAll();
     startChooseHour();
     setTimeout(function (){ boolOpenEvent = false; },200)
 }
 
 function step3FermerVolet(){
-    ouvrirfermer = "Fermer";
+    currentappaVolet['ouvrirfermer'] = "Fermer";
     hideAll();
     startChooseHour();
     setTimeout(function (){ boolOpenEvent = false; },200)
 }
 
 function appaVoletSuccess(){
-    sentenceappaVolet = "";
-    if(IDAlarmappaVolet > -1){
+    currentappaVolet['sentence'] = "";
+    if(currentappaVolet['IDAlarm'] > -1){
         //Phrase avec alarme
-        sentenceappaVolet += ouvrirfermer + " les Volets<br>Avec l'alarme " + IDAlarmappaVolet + " (" + decalageappaVolet + ")";
+        currentappaVolet['sentence'] += currentappaVolet['ouvrirfermer'] + " les Volets<br>Avec l'alarme " + currentappaVolet['IDAlarm'] + "(" + currentappaVolet['sdecalage'] + currentappaVolet['hdecalage'] + ")";
     }else{
         //Phrase avec heure fixée
-        sentenceappaVolet += ouvrirfermer + " les Volets<br>";
+        currentappaVolet['sentence'] += currentappaVolet['ouvrirfermer'] + " les Volets<br>";
         var dayStr = ""
         var nbTrue = 0;
         for(var i=0;i<7;i++){
@@ -498,14 +640,19 @@ function appaVoletSuccess(){
            }
         }
         if(nbTrue == 7){
-            sentenceappaVolet += "Tous les jours à " + hourappaVolet;
+            currentappaVolet['sentence'] += "Tous les jours à " + currentappaVolet['hour'];
         }else
-            sentenceappaVolet += dayStr + " à " + hourappaVolet;
+            currentappaVolet['sentence'] += dayStr + " à " + currentappaVolet['hour'];
     }
     
-    $('#sentenceSuccess')[0].innerHTML = sentenceappaVolet;
+    $('#sentenceSuccess')[0].innerHTML = currentappaVolet['sentence'];
     hideAll();
     $('#popUpSuccess').fadeIn(200);
+    if(!boolEdit){
+        idappaVolet++;
+        currentappaVolet['ID'] = idappaVolet;
+        listappaVolet[idappaVolet] = currentappaVolet;        
+    }
     updateListEvent();
 }
 /////////////////////////////////////////////////////////////////////
@@ -524,21 +671,22 @@ function atFixHour(){
     $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeurestepAtFixHour').fadeIn(200); });    
 }
 function selectAlarm(id){
-    window["hour" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][0];
-    window["tabDay" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][1];
-    window["IDAlarm" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][2];    
+    window["current" + currentEvent]['hour'] = alarmTab[id.replace("choseAlarmID","")][0];
+    window["current" + currentEvent]['tabDay'] = alarmTab[id.replace("choseAlarmID","")][1];
+    window["current" + currentEvent]['IDAlarm'] = alarmTab[id.replace("choseAlarmID","")][2];    
     $('#choixHeureWithAlarmStep1').fadeOut(200, function (){ $('#choixHeureWithAlarmStep2').fadeIn(200); });
 }
 function valideDecalage(){    
-    window["decalage" + currentEvent] = $('#plusmoins')[0].value + $('#decalageHeure')[0].value;
+    window["current" + currentEvent]['hdecalage'] = $('#decalageHeure')[0].value;
+    window["current" + currentEvent]['sdecalage'] = $('#plusmoins')[0].value;
     window[currentEvent + "Success"]();
 }
 function valideAtFixHour(){
      for(var i=1;i<=7;i++)
-        window["tabDay" + currentEvent][i-1] = $('#dayEvent'+i).hasClass('selectedCircle');   
+        window["current" + currentEvent]['tabDay'][i-1] = $('#dayEvent'+i).hasClass('selectedCircle');   
     
-    window["hour" + currentEvent] = $('#timeAlarmeEvent')[0].value;
-    window["IDAlarm" + currentEvent] = -1;
+    window["current" + currentEvent]['hour'] = $('#timeAlarmeEvent')[0].value;
+    window["current" + currentEvent]['IDAlarm'] = -1;
     window[currentEvent + "Success"]();
 }
 /////////////////////////////////////////////////////////////////////
@@ -547,17 +695,21 @@ function valideAtFixHour(){
 function updateListEvent(){
     $('#popupEvents').children().remove();
     
-    if(sentenceappaDistrib != "")
-        $("<div class='entriesEvent'>"+sentenceappaDistrib+"</div>").appendTo($('#popupEvents'));
+    listappaDistrib.forEach(function (e){
+         $("<div class='entriesEvent' onclick='appaDistribCreateEvent(\""+ e['ID'] +"\")'>"+e['sentence']+"</div>").appendTo($('#popupEvents'));
+    });
     
-    if(sentenceappaCafe != "")
-        $("<div class='entriesEvent'>"+sentenceappaCafe+"</div>").appendTo($('#popupEvents')); 
+    listappaCafe.forEach(function (e){
+         $("<div class='entriesEvent' onclick='appaCafeCreateEvent(\""+ e['ID'] +"\")'>"+e['sentence']+"</div>").appendTo($('#popupEvents'));
+    });    
     
-    if(sentenceappaChauffage != "")
-        $("<div class='entriesEvent'>"+sentenceappaChauffage+"</div>").appendTo($('#popupEvents'));
+    listappaChauffage.forEach(function (e){
+         $("<div class='entriesEvent' onclick='appaChauffageCreateEvent(\""+ e['ID'] +"\")'>"+e['sentence']+"</div>").appendTo($('#popupEvents'));
+    }); 
     
-    if(sentenceappaVolet != "")
-        $("<div class='entriesEvent'>"+sentenceappaVolet+"</div>").appendTo($('#popupEvents'));
+    listappaVolet.forEach(function (e){
+         $("<div class='entriesEvent' onclick='appaVoletCreateEvent(\""+ e['ID'] +"\")'>"+e['sentence']+"</div>").appendTo($('#popupEvents'));
+    }); 
     
 }
 /////////////////////////////////////////////////////////////////////
