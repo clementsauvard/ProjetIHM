@@ -187,7 +187,7 @@ var alarmTab = [];
 var idAlarmI = 0;
 var alarmInEdit = -1;
 
-var day = ['L','M','M','J','V','S','D'];
+var day = ['L','Ma','Me','J','V','S','D'];
 
 function addAlarmToList(alarm){
     var heure = alarm[0];
@@ -299,8 +299,10 @@ function addAppa(a) {
 }
 var quantiNourri = 0;
 var currentEvent = "";
-var tabDayEvent = [false,false,false,false,false,false,false];
-var hourEvent = "00:00";
+var IDAlarmappaDistrib = -1;
+var tabDayappaDistrib = [false,false,false,false,false,false,false];
+var hourappaDistrib = "00:00";
+var sentenceappaDistrib = "";
 function appaDistribCreateEvent(){
      currentEvent = "appaDistrib";
      boolOpenEvent = true;
@@ -314,10 +316,33 @@ function step2Distrib(){
     startChooseHour();
 }
 function appaDistribSuccess(){
-    hideAll();
-    var sentence = "";
+    sentenceappaDistrib = "";
+    if(IDAlarmappaDistrib > -1){
+        //Phrase avec alarme
+        sentenceappaDistrib += "Distribuer nourriture<br>Avec l'alarme " + IDAlarmappaDistrib;
+    }else{
+        //Phrase avec heure fixée
+        sentenceappaDistrib += "Distribuer nourriture<br>";
+        var dayStr = ""
+        var nbTrue = 0;
+        for(var i=0;i<7;i++){
+           if(tabDayappaDistrib[i]){
+               dayStr += day[i] + " ";
+               nbTrue++
+           }
+        }
+        if(nbTrue == 7){
+            sentenceappaDistrib += "Tous les jours à " + hourappaDistrib;
+        }else
+            sentenceappaDistrib += dayStr + " à " + hourappaDistrib;
+    }
     
+    $('#sentenceappaDistrib')[0].innerHTML = sentenceappaDistrib;
+    hideAll();
+    $('#popupDistribSuccess').fadeIn(200);
+    updateListEvent();
 }
+
 function appaCafeCreateEvent(){
     boolOpenEvent = true;
     alert("test");
@@ -338,21 +363,28 @@ function atFixHour(){
 }
 
 function selectAlarm(id){
-    hourEvent = alarmTab[id.replace("choseAlarmID","")][0];
-    tabDayEvent = alarmTab[id.replace("choseAlarmID","")][1];
+    window["hour" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][0];
+    window["tabDay" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][1];
+    window["IDAlarm" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][2];
+    window[currentEvent + "Success"]();
 }
 
 function valideAtFixHour(){
      for(var i=1;i<=7;i++)
-        tabDayEvent[i-1] = $('#dayEvent'+i).hasClass('selectedCircle');   
+        window["tabDay" + currentEvent][i-1] = $('#dayEvent'+i).hasClass('selectedCircle');   
     
-    hourEvent = $('#timeAlarmeEvent')[0].value;
+    window["hour" + currentEvent] = $('#timeAlarmeEvent')[0].value;
+    window["IDAlarm" + currentEvent] = -1;
     window[currentEvent + "Success"]();
 }
 /////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////// Gestion évènements
-function addEventToList(){
+function updateListEvent(){
+    $('#popupEvents').children().remove();
+    
+    if(sentenceappaDistrib != "")
+        $("<div class='entriesEvent'>"+sentenceappaDistrib+"</div>").appendTo($('#popupEvents'));    
     
 }
 /////////////////////////////////////////////////////////////////////

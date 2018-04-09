@@ -14,9 +14,7 @@
     </div>
 
     <!-- Pop up events -->
-    <div class="popup" id="popupEvents">
-       <div class="entriesEvent"  onclick="">Ouvrir les volets<br>Avec l'alarme 1</div>
-        <div class="entriesEvent"  onclick="">Ouvrir les volets<br>Avec l'alarme 1</div>        
+    <div class="popup" id="popupEvents">  
     </div>
 
     <!-- Pop up liste appareils -->
@@ -25,7 +23,6 @@
         <div class="appa" id="appaCafe" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaCafe.png" class="miniAppa"/></div><div class="miniAppaDiv">Cafetière</div></div>
         <div class="appa" id="appaVolet" onclick=""><div class="miniAppaDiv"><img src="images/appaVolet.png" class="miniAppa"/></div><div class="miniAppaDiv">Volet</div></div>        
         <div class="appa" id="appaRadia" onclick=""><div class="miniAppaDiv"><img src="images/appaRadia.png" class="miniAppa"/></div><div class="miniAppaDiv">Chauffage</div></div>
-        <div class="appa" id="appaArroseur" onclick=""><div class="miniAppaDiv"><img src="images/appaArroseur.png" class="miniAppa"/></div><div class="miniAppaDiv">Arroseur jardin</div></div>
     </div>
     
     <!-- Pop up about -->
@@ -51,8 +48,8 @@
         <div id="creationAlarm">
             <div class="circleList">
                 <div class="cirlcleDay" id="day1">L</div>
-                <div class="cirlcleDay" id="day2">M</div>
-                <div class="cirlcleDay" id="day3">M</div>
+                <div class="cirlcleDay" id="day2">Ma</div>
+                <div class="cirlcleDay" id="day3">Me</div>
                 <div class="cirlcleDay" id="day4">J</div>
                 <div class="cirlcleDay" id="day5">V</div>
                 <div class="cirlcleDay" id="day6">S</div>
@@ -79,9 +76,8 @@
     </div>
     
     <div class="popup" id="popupDistribSuccess">
-        <h3>Tous les jours Xg de nourritures sera déversé à xxhxx</h3><br>
-          <input class="button" id="valideAlarm" type="button" value="Valider" onclick="createDistrib()">
-          <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
+        <h3 id="sentenceappaDistrib">Tous les jours Xg de nourritures sera <br>déversé à xxhxx</h3><br>
+          <input class="button" id="valideAlarm" type="button" value="Valider" onclick="hideAll()">
     </div>
     
     <div class="popup" id="popupChoixHeure">
@@ -94,8 +90,8 @@
             <h3>Choisissez l'heure et les jours</h3>
             <div class="circleList">
                 <div class="cirlcleDay" id="dayEvent1">L</div>
-                <div class="cirlcleDay" id="dayEvent2">M</div>
-                <div class="cirlcleDay" id="dayEvent3">M</div>
+                <div class="cirlcleDay" id="dayEvent2">Ma</div>
+                <div class="cirlcleDay" id="dayEvent3">Me</div>
                 <div class="cirlcleDay" id="dayEvent4">J</div>
                 <div class="cirlcleDay" id="dayEvent5">V</div>
                 <div class="cirlcleDay" id="dayEvent6">S</div>
