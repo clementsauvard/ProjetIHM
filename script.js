@@ -342,6 +342,4 @@ $(function () {
             hideAll(boolNav);
         }
     });
-    
-
 });

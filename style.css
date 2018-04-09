@@ -240,3 +240,55 @@ span {
     width: 50px;
     height: 50px;
 }
+
+.bgimg {
+    background-image: url("images/blueA.jpg");
+    border-radius: 15px;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 25px;
+}
+
+
+.topleft {
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    width: 100%;
+}
+
+.bottomleft {
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    text-align: center;
+}
+
+hr {
+    margin: auto;
+    width:40%;
+}
+@media screen and (min-width:320px) and (max-width:767px) and (orientation:landscape) {
+    .topleft {
+        display: none;
+    }
+    .middle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 100%
+    }
+}
