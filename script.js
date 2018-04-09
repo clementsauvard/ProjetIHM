@@ -246,25 +246,23 @@ function addAlarm(){
     if( $('#timeAlarme')[0].value == '')
         return;
     
-    var days = [false,false,false,false,false,false,false];
-    for(var i=1;i<=7;i++)
-        days[i-1] = $('#day'+i).hasClass('selectedCircle');        
-    
-    var hour = $('#timeAlarme')[0].value;
-    
-    var id = alarmInEdit
-    
-    if(id == -1)
+    var id = alarmInEdit;
+    if(id == -1){
         id = ++idAlarmI; 
-    else
+        var newAlarm = [$('#timeAlarme')[0].value,[false,false,false,false,false,false,false],id];
+        alarmTab[id] = newAlarm;        
+    }
+    else{       
         removeAlarmToList(id);
+    }     
     
-    var newAlarm = [hour,days,id];
-    alarmTab[id] = newAlarm;
-    addAlarmToList(newAlarm);
+    for(var i=1;i<=7;i++)
+        alarmTab[id][1][i-1] = $('#day'+i).hasClass('selectedCircle');
+    
+    addAlarmToList(alarmTab[id]);
     $('#creationAlarm').hide();
     $('#successAlarm').show();
-    
+    alarmInEdit = -1;
 }
 
 function hideAll(boolNav) {
@@ -285,28 +283,41 @@ function addAppa(a) {
 
     currentFloor.push(newAppa);
     newAppa.draggable({stop : function (e,ui){
-        console.log(Math.abs(ui.originalPosition.top - ui.position.top));
-        console.log(Math.abs(ui.originalPosition.left - ui.position.left));
         if(Math.abs(ui.originalPosition.top - ui.position.top) < 5 && Math.abs(ui.originalPosition.left - ui.position.left) < 5){
-            window[a + "CreateEvent"]();
+             var newLeft = (ui.originalPosition.left / $('#plan').width())*100;
+             var newTop = (ui.originalPosition.top / $('#plan').height())*100;
+             $(this).css({'left': newLeft+"%",'top': newTop+"%"});
+             window[a + "CreateEvent"]();
+        }else{
+            var newLeft = (ui.position.left / $('#plan').width())*100;
+            var newTop = (ui.position.top / $('#plan').height())*100;
+            $(this).css({'left': newLeft+"%",'top': newTop+"%"});
         }
-        var newLeft = (ui.position.left / $('#plan').width())*100;
-        var newTop = (ui.position.top / $('#plan').height())*100;
-        $(this).css({'left': newLeft+"%",'top': newTop+"%"});
+
     }});
     newAppa.appendTo(plan);
 }
+var quantiNourri = 0;
+var currentEvent = "";
+var tabDayEvent = [false,false,false,false,false,false,false];
+var hourEvent = "00:00";
 function appaDistribCreateEvent(){
+     currentEvent = "appaDistrib";
      boolOpenEvent = true;
      hideAll();
      $('#popupDistribStep1').fadeIn(200, function (){ boolOpenEvent = false; });
 }
 
 function step2Distrib(){
+    quantiNourri = parseInt($('.quantNourri')[0].value==""?0:$('.quantNourri')[0].value);
     hideAll();
     startChooseHour();
 }
-
+function appaDistribSuccess(){
+    hideAll();
+    var sentence = "";
+    
+}
 function appaCafeCreateEvent(){
     boolOpenEvent = true;
     alert("test");
@@ -326,6 +337,18 @@ function atFixHour(){
     $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeurestepAtFixHour').fadeIn(200); });    
 }
 
+function selectAlarm(id){
+    hourEvent = alarmTab[id.replace("choseAlarmID","")][0];
+    tabDayEvent = alarmTab[id.replace("choseAlarmID","")][1];
+}
+
+function valideAtFixHour(){
+     for(var i=1;i<=7;i++)
+        tabDayEvent[i-1] = $('#dayEvent'+i).hasClass('selectedCircle');   
+    
+    hourEvent = $('#timeAlarmeEvent')[0].value;
+    window[currentEvent + "Success"]();
+}
 /////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////// Gestion évènements

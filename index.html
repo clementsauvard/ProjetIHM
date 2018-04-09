@@ -78,7 +78,7 @@
           <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
     </div>
     
-    <div class="popup" id="popupDistribStep2">
+    <div class="popup" id="popupDistribSuccess">
         <h3>Tous les jours Xg de nourritures sera déversé à xxhxx</h3><br>
           <input class="button" id="valideAlarm" type="button" value="Valider" onclick="createDistrib()">
           <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
@@ -93,16 +93,16 @@
         <div id="choixHeurestepAtFixHour" hidden>
             <h3>Choisissez l'heure et les jours</h3>
             <div class="circleList">
-                <div class="cirlcleDay" id="day1">L</div>
-                <div class="cirlcleDay" id="day2">M</div>
-                <div class="cirlcleDay" id="day3">M</div>
-                <div class="cirlcleDay" id="day4">J</div>
-                <div class="cirlcleDay" id="day5">V</div>
-                <div class="cirlcleDay" id="day6">S</div>
-                <div class="cirlcleDay" id="day7">D</div>
+                <div class="cirlcleDay" id="dayEvent1">L</div>
+                <div class="cirlcleDay" id="dayEvent2">M</div>
+                <div class="cirlcleDay" id="dayEvent3">M</div>
+                <div class="cirlcleDay" id="dayEvent4">J</div>
+                <div class="cirlcleDay" id="dayEvent5">V</div>
+                <div class="cirlcleDay" id="dayEvent6">S</div>
+                <div class="cirlcleDay" id="dayEvent7">D</div>
             </div>
             <br><br>
-            <input id="timeAlarme" type="time"><br><br>
+            <input id="timeAlarmeEvent" type="time"><br><br>
             <input class="largerButton" id="withAlarm" type="button" value="Valider" onclick="valideAtFixHour()"><br><br>
         </div>
         <div id="choixHeurestepWithAlarm" hidden>
