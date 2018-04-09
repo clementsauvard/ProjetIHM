@@ -184,6 +184,7 @@ body {
 
 .button {
     width: 120px;
+    height: 31px;
     border-radius: 15px;
     background-color: white;
     border-width: 2px;
@@ -280,6 +281,7 @@ span {
 
 .largerButton {
     width: 180px;
+    height: 31px;
     border-radius: 15px;
     background-color: white;
     border-width: 2px;
@@ -347,4 +349,68 @@ hr {
 
 #popupDistribSuccess {
     height: 170px;
+}
+
+.plusmoins {
+    font-weight: bold;
+    font-size:15pt;
+}
+
+#decalageHeure {
+    font-weight: bold;
+    font-size: 15pt;
+    width: 80px;
+}
+
+#choixHeurestepWithAlarmStep2 {
+    height: 10px;
+}
+
+.degreeChauffage {
+    width: 70px;
+    border-radius: 15px;
+    background-color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    font-size: 13pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+#valideChauffage {
+    font-size: 7pt;
+}
+
+#popupChauffageStep2 {
+    height: 200px
+}
+
+#popUpSuccess {
+    height: 150px;
+}
+
+.checkVolet {
+    margin: 0 auto;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    background-color: white;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    font-size: 13pt;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.listVolet {
+    overflow: scroll;
+    height: 200px;
+}
+
+#popupVoletStep2 {
+    height: 200px;
 }

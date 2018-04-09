@@ -21,8 +21,8 @@
     <div class="popup" id="popupAppas">
         <div class="appa" id="appaDistrib" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaDistrib.png" class="miniAppa"/></div><div class="miniAppaDiv">Distributeur nourritures</div></div>
         <div class="appa" id="appaCafe" onclick="addAppa(this.id)"><div class="miniAppaDiv"><img src="images/appaCafe.png" class="miniAppa"/></div><div class="miniAppaDiv">Cafetière</div></div>
-        <div class="appa" id="appaVolet" onclick=""><div class="miniAppaDiv"><img src="images/appaVolet.png" class="miniAppa"/></div><div class="miniAppaDiv">Volet</div></div>        
-        <div class="appa" id="appaRadia" onclick=""><div class="miniAppaDiv"><img src="images/appaRadia.png" class="miniAppa"/></div><div class="miniAppaDiv">Chauffage</div></div>
+        <div class="appa" id="appaVolet" onclick="appaVoletCreateEvent()"><div class="miniAppaDiv"><img src="images/appaVolet.png" class="miniAppa"/></div><div class="miniAppaDiv">Volet</div></div>        
+        <div class="appa" id="appaRadia" onclick="appaChauffageCreateEvent()"><div class="miniAppaDiv"><img src="images/appaRadia.png" class="miniAppa"/></div><div class="miniAppaDiv">Chauffage</div></div>
     </div>
     
     <!-- Pop up about -->
@@ -74,14 +74,52 @@
           <input class="button" id="valideAlarm" type="button" value="Valider" onclick="step2Distrib()">
           <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
     </div>
+     <!-- ----------------------------------- -->
     
-    <div class="popup" id="popupDistribSuccess">
-        <h3 id="sentenceappaDistrib">Tous les jours Xg de nourritures sera <br>déversé à xxhxx</h3><br>
+    <!-- Pop up création event chauffage -->
+    <div class="popup" id="popupChauffageStep1">
+        <h3>Choississez une température</h3>
+        <input class="degreeChauffage" type="number" placeholder="20" > <span class="gramme">°C</span><br><br>
+          <input class="button" id="valideChauffage0" type="button" value="Valider" onclick="step2Chauffage()">
+          <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
+    </div>
+    <div class="popup" id="popupChauffageStep2">
+        <h3>Définir un arrêt automatique</h3><br>
+        <input class="largerButton" id="valideChauffage" type="button" value="Smartphone en dehors de la maison" onclick="step3Chauffage()"><br><br>
+        <input class="largerButton" id="valideChauffag2e" type="button" value="Aucun" onclick="step3Chauffage()"><br><br>
+    </div>
+     <!----------------------------------------->
+        <!-- Pop up création event volet -->
+    <div class="popup" id="popupVoletStep1">
+        <h3>Choississez les volets</h3>
+        <div class="listVolet">
+         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet cuisine</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet garage</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet salon</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet salle de jeu</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">RDC Volet toilette</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet palier </label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet bureau</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet chambre</label></div>
+         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet salle de bain</label></div>        
+         <div class="checkVolet"><label><input type="checkbox" value="value">1er Volet panderie</label></div>
+        </div><br>
+          <input class="button" id="valideVolet" type="button" value="Valider" onclick="step2Volet()">
+          <input class="button" id="cancel" type="button" value="Annuler" onclick="hideAll()">
+    </div>
+    <div class="popup" id="popupVoletStep2">
+        <h3>Les volets doivent-ils s'ouvrir ou se fermer ?</h3>
+        <input class="largerButton" id="valideVolet" type="button" value="Ouvrir" onclick="step3OuvrirVolet()"><br><br>
+        <input class="largerButton" id="valideVolet" type="button" value="Fermer" onclick="step3FermerVolet()"><br><br>
+    </div>
+     <!--------------------------------------->
+    <div class="popup" id="popUpSuccess">
+        <h3 id="sentenceSuccess"></h3><br>
           <input class="button" id="valideAlarm" type="button" value="Valider" onclick="hideAll()">
     </div>
     
     <div class="popup" id="popupChoixHeure">
-        <div id="choixHeurestep1" >
+        <div id="choixHeurestep1" hidden>
             <h3>A quelle heure voulez vous que l'évènement se déclenche ?</h3>
               <input class="largerButton" id="withAlarm" type="button" value="Avec une alarme" onclick="withAlarm()"><br><br>
               <input class="largerButton" id="atFixHour" type="button" value="À heures fixes" onclick="atFixHour()">
@@ -101,8 +139,19 @@
             <input id="timeAlarmeEvent" type="time"><br><br>
             <input class="largerButton" id="withAlarm" type="button" value="Valider" onclick="valideAtFixHour()"><br><br>
         </div>
-        <div id="choixHeurestepWithAlarm" hidden>
+        
+        <div id="choixHeureWithAlarmStep1" hidden>
             <h3>Choisissez une alarme</h3>
+        </div>
+        
+        <div id="choixHeureWithAlarmStep2" hidden>
+            <h3>Défininissez un décalage d'heure</h3>
+            <select class="plusmoins" id="plusmoins">
+             <option selected value="+">+</option>
+             <option value="-">-</option>
+            </select>
+            <input type="time" id="decalageHeure" value="00:00"><br><br><br>
+            <input class="largerButton" id="withAlarm" type="button" value="Valider" onclick="valideDecalage()">
         </div>
     </div>
 </div>

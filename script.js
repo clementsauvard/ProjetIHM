@@ -202,7 +202,7 @@ function addAlarmToList(alarm){
         }
     }
         
-    $("<div class='entries' id='choseAlarmID"+alarmID+"' onclick='selectAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#choixHeurestepWithAlarm'));
+    $("<div class='entries' id='choseAlarmID"+alarmID+"' onclick='selectAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#choixHeureWithAlarmStep1'));
     
     $("<div class='entries' id='alarmID"+alarmID+"' onclick='editAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
 
@@ -297,11 +297,13 @@ function addAppa(a) {
     }});
     newAppa.appendTo(plan);
 }
-var quantiNourri = 0;
 var currentEvent = "";
+///////////////////////////////////////////////////////////////////// Création event distributeur nourriture animaux
+var quantiNourri = 0;
 var IDAlarmappaDistrib = -1;
 var tabDayappaDistrib = [false,false,false,false,false,false,false];
 var hourappaDistrib = "00:00";
+var decalageappaDistrib = "+00:00";
 var sentenceappaDistrib = "";
 function appaDistribCreateEvent(){
      currentEvent = "appaDistrib";
@@ -319,7 +321,7 @@ function appaDistribSuccess(){
     sentenceappaDistrib = "";
     if(IDAlarmappaDistrib > -1){
         //Phrase avec alarme
-        sentenceappaDistrib += "Distribuer nourriture<br>Avec l'alarme " + IDAlarmappaDistrib;
+        sentenceappaDistrib += "Distribuer nourriture<br>Avec l'alarme " + IDAlarmappaDistrib + " (" + decalageappaDistrib + ")";
     }else{
         //Phrase avec heure fixée
         sentenceappaDistrib += "Distribuer nourriture<br>";
@@ -337,16 +339,176 @@ function appaDistribSuccess(){
             sentenceappaDistrib += dayStr + " à " + hourappaDistrib;
     }
     
-    $('#sentenceappaDistrib')[0].innerHTML = sentenceappaDistrib;
+    $('#sentenceSuccess')[0].innerHTML = sentenceappaDistrib;
     hideAll();
-    $('#popupDistribSuccess').fadeIn(200);
+    $('#popUpSuccess').fadeIn(200);
+    updateListEvent();
+}
+/////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////// Création event cafetière
+var IDAlarmappaCafe = -1;
+var tabDayappaCafe = [false,false,false,false,false,false,false];
+var hourappappaCafe = "00:00";
+var decalageappappaCafe = "+00:00";
+var sentenceappaCafe = "";
+
+function appaCafeCreateEvent(){
+     currentEvent = "appaCafe";
+     boolOpenEvent = true;
+    hideAll();
+    startChooseHour();
+    setTimeout(function (){ boolOpenEvent = false; },200)
+}
+
+function appaCafeSuccess(){
+    sentenceappaCafe = "";
+    if(IDAlarmappaCafe > -1){
+        //Phrase avec alarme
+        sentenceappaCafe += "Faire couler café<br>Avec l'alarme " + IDAlarmappaCafe + " (" + decalageappaCafe + ")";
+    }else{
+        //Phrase avec heure fixée
+        sentenceappaCafe += "Faire couler café<br>";
+        var dayStr = ""
+        var nbTrue = 0;
+        for(var i=0;i<7;i++){
+           if(tabDayappaCafe[i]){
+               dayStr += day[i] + " ";
+               nbTrue++
+           }
+        }
+        if(nbTrue == 7){
+            sentenceappaCafe += "Tous les jours à " + hourappaCafe;
+        }else
+            sentenceappaCafe += dayStr + " à " + hourappaCafe;
+    }
+    
+    $('#sentenceSuccess')[0].innerHTML = sentenceappaCafe;
+    hideAll();
+    $('#popUpSuccess').fadeIn(200);
     updateListEvent();
 }
 
-function appaCafeCreateEvent(){
-    boolOpenEvent = true;
-    alert("test");
+/////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////// Création event chauffage
+var degreeChauffage = 20;
+var IDAlarmappaChauffage = -1;
+var tabDayappaChauffage = [false,false,false,false,false,false,false];
+var hourappaChauffage = "00:00";
+var decalageappaChauffage = "+00:00";
+var sentenceappaChauffage = "";
+
+function appaChauffageCreateEvent(){
+     currentEvent = "appaChauffage";
+     boolOpenEvent = true;
+     hideAll();
+     $('#popupChauffageStep1').fadeIn(200, function (){ boolOpenEvent = false; });
 }
+
+function step2Chauffage(){
+    degreeChauffage = parseInt($('.degreeChauffage')[0].value==""?0:$('.degreeChauffage')[0].value);
+    hideAll();
+    setTimeout(function (){$('#popupChauffageStep2').fadeIn(200)},200); 
+}
+
+function step3Chauffage(){
+    hideAll();
+    startChooseHour();
+    setTimeout(function (){ boolOpenEvent = false; },200)
+}
+
+function appaChauffageSuccess(){
+    sentenceappaChauffage = "";
+    if(IDAlarmappaChauffage > -1){
+        //Phrase avec alarme
+        sentenceappaChauffage += "Démarrer le chauffage<br>Avec l'alarme " + IDAlarmappaChauffage + " (" + decalageappaChauffage + ")";
+    }else{
+        //Phrase avec heure fixée
+        sentenceappaChauffage += "Démarrer le chauffage<br>";
+        var dayStr = ""
+        var nbTrue = 0;
+        for(var i=0;i<7;i++){
+           if(tabDayappaChauffage[i]){
+               dayStr += day[i] + " ";
+               nbTrue++
+           }
+        }
+        if(nbTrue == 7){
+            sentenceappaChauffage += "Tous les jours à " + hourappaChauffage;
+        }else
+            sentenceappaChauffage += dayStr + " à " + hourappaChauffage;
+    }
+    
+    $('#sentenceSuccess')[0].innerHTML = sentenceappaChauffage;
+    hideAll();
+    $('#popUpSuccess').fadeIn(200);
+    updateListEvent();
+}
+/////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////// Création event volet
+var degreeVolet = 20;
+var IDAlarmappaVolet = -1;
+var tabDayappaVolet = [false,false,false,false,false,false,false];
+var hourappaVolet = "00:00";
+var decalageappaVolet = "+00:00";
+var sentenceappaVolet = "";
+var ouvrirfermer = "Fermer";
+function appaVoletCreateEvent(){
+     currentEvent = "appaVolet";
+     boolOpenEvent = true;
+     hideAll();
+     $('#popupVoletStep1').fadeIn(200, function (){ boolOpenEvent = false; });
+}
+
+function step2Volet(){
+    hideAll();
+    setTimeout(function (){$('#popupVoletStep2').fadeIn(200)},200); 
+}
+
+function step3OuvrirVolet(){
+    ouvrirfermer = "Ouvrir";
+    hideAll();
+    startChooseHour();
+    setTimeout(function (){ boolOpenEvent = false; },200)
+}
+
+function step3FermerVolet(){
+    ouvrirfermer = "Fermer";
+    hideAll();
+    startChooseHour();
+    setTimeout(function (){ boolOpenEvent = false; },200)
+}
+
+function appaVoletSuccess(){
+    sentenceappaVolet = "";
+    if(IDAlarmappaVolet > -1){
+        //Phrase avec alarme
+        sentenceappaVolet += ouvrirfermer + " les Volets<br>Avec l'alarme " + IDAlarmappaVolet + " (" + decalageappaVolet + ")";
+    }else{
+        //Phrase avec heure fixée
+        sentenceappaVolet += ouvrirfermer + " les Volets<br>";
+        var dayStr = ""
+        var nbTrue = 0;
+        for(var i=0;i<7;i++){
+           if(tabDayappaVolet[i]){
+               dayStr += day[i] + " ";
+               nbTrue++
+           }
+        }
+        if(nbTrue == 7){
+            sentenceappaVolet += "Tous les jours à " + hourappaVolet;
+        }else
+            sentenceappaVolet += dayStr + " à " + hourappaVolet;
+    }
+    
+    $('#sentenceSuccess')[0].innerHTML = sentenceappaVolet;
+    hideAll();
+    $('#popUpSuccess').fadeIn(200);
+    updateListEvent();
+}
+/////////////////////////////////////////////////////////////////////
 
 function startChooseHour(){    
     $('#choixHeurestep1').siblings().hide();
@@ -355,20 +517,22 @@ function startChooseHour(){
 }
 
 function withAlarm(){
-    $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeurestepWithAlarm').fadeIn(200); });    
+    $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeureWithAlarmStep1').fadeIn(200); });    
 }
 
 function atFixHour(){
     $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeurestepAtFixHour').fadeIn(200); });    
 }
-
 function selectAlarm(id){
     window["hour" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][0];
     window["tabDay" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][1];
-    window["IDAlarm" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][2];
+    window["IDAlarm" + currentEvent] = alarmTab[id.replace("choseAlarmID","")][2];    
+    $('#choixHeureWithAlarmStep1').fadeOut(200, function (){ $('#choixHeureWithAlarmStep2').fadeIn(200); });
+}
+function valideDecalage(){    
+    window["decalage" + currentEvent] = $('#plusmoins')[0].value + $('#decalageHeure')[0].value;
     window[currentEvent + "Success"]();
 }
-
 function valideAtFixHour(){
      for(var i=1;i<=7;i++)
         window["tabDay" + currentEvent][i-1] = $('#dayEvent'+i).hasClass('selectedCircle');   
@@ -384,7 +548,16 @@ function updateListEvent(){
     $('#popupEvents').children().remove();
     
     if(sentenceappaDistrib != "")
-        $("<div class='entriesEvent'>"+sentenceappaDistrib+"</div>").appendTo($('#popupEvents'));    
+        $("<div class='entriesEvent'>"+sentenceappaDistrib+"</div>").appendTo($('#popupEvents'));
+    
+    if(sentenceappaCafe != "")
+        $("<div class='entriesEvent'>"+sentenceappaCafe+"</div>").appendTo($('#popupEvents')); 
+    
+    if(sentenceappaChauffage != "")
+        $("<div class='entriesEvent'>"+sentenceappaChauffage+"</div>").appendTo($('#popupEvents'));
+    
+    if(sentenceappaVolet != "")
+        $("<div class='entriesEvent'>"+sentenceappaVolet+"</div>").appendTo($('#popupEvents'));
     
 }
 /////////////////////////////////////////////////////////////////////
@@ -438,6 +611,5 @@ $(function () {
             hideAll(boolNav);
         }
     });
-
 
 });
