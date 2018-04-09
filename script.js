@@ -296,6 +296,7 @@ function addAppa(a) {
 
     }});
     newAppa.appendTo(plan);
+    hideAll();
 }
 var currentEvent = "";
 var boolEdit = false;
