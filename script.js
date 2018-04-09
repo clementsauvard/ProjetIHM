@@ -285,6 +285,11 @@ function addAppa(a) {
 
     currentFloor.push(newAppa);
     newAppa.draggable({stop : function (e,ui){
+        console.log(Math.abs(ui.originalPosition.top - ui.position.top));
+        console.log(Math.abs(ui.originalPosition.left - ui.position.left));
+        if(Math.abs(ui.originalPosition.top - ui.position.top) < 5 && Math.abs(ui.originalPosition.left - ui.position.left) < 5){
+            window[a + "CreateEvent"]();
+        }
         var newLeft = (ui.position.left / $('#plan').width())*100;
         var newTop = (ui.position.top / $('#plan').height())*100;
         $(this).css({'left': newLeft+"%",'top': newTop+"%"});
