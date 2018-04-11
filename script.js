@@ -1,3 +1,5 @@
+
+//Fonction permettant l'ouverture et la fermeture du menue latéral
 var boolNav = false;
 var boolOpenEvent = false;
 function openNav() {
@@ -18,7 +20,7 @@ $("#floorSlider").slider({
 });
 
 
-
+//Fonction pour switch l'interface entre les deux étages
 function switchFloor(event, ui) {
     if (ui.value == 0)    
         showRDC();    
@@ -29,6 +31,7 @@ function switchFloor(event, ui) {
 var plan = $('#plan');
 var planImg = $('#planImg');
 var currentFloor;
+//Génération par programmation des éléments (porte et fenêtre) qui seront sur le schéma de la maison
 /////////////////////////////////////////////////////////////////////RDC
 var eleRDC = [];
 //Porte garage:
@@ -188,6 +191,7 @@ var alarmInEdit = -1;
 
 var day = ['L','Ma','Me','J','V','S','D'];
 
+//Fonction pour ajouté une alarme dans l'interface de l'application (dans la liste des alarmes)
 function addAlarmToList(alarm){
     var heure = alarm[0];
     var tableDay = alarm[1];
@@ -206,12 +210,12 @@ function addAlarmToList(alarm){
     $("<div class='entries' id='alarmID"+alarmID+"' onclick='editAlarm(this.id)'><span class='hour'>"+heure+"</span>&nbsp;&nbsp;&nbsp; " + line + "</div>").appendTo($('#popupAlarmes'));
 
 }
-
+//Fonction pour supprimé une alarme dans l'interface de l'application (dans la liste des alarmes)
 function removeAlarmToList(id){
     $('#alarmID'+id).remove();
     $('#choseAlarmID'+id).remove();
 }
-
+//Fonction pour commencé la création d'une alarme (initialisation des champs et fait apparaitre la première pop up)
 function startCreationAlarm(){
     for (var i = 1; i <= 7; i++)
        $('#day' + i).removeClass('selectedCircle');
@@ -222,7 +226,7 @@ function startCreationAlarm(){
     hideAll();
     $('#popupAlarmStep1').fadeIn(200);
 }
-
+//Fonction pour édité une alarme (initilisation des champs avec les données de l'alarme a éditer et fait apparaitre la première pop up)
 function editAlarm(e){
     var id = parseInt(e.replace("alarmID",""))
     alarmInEdit = id;
@@ -241,6 +245,7 @@ function editAlarm(e){
     $('#popupAlarmStep1').fadeIn(200);
 }
 
+//Fonction pour ajouté l'alarme en cours de création/édition au tableau "alarmTab"
 function addAlarm(){
     if( $('#timeAlarme')[0].value == '')
         return;
@@ -262,14 +267,6 @@ function addAlarm(){
     $('#creationAlarm').hide();
     $('#successAlarm').show();
     alarmInEdit = -1;
-}
-
-function hideAll(boolNav) {
-    if (boolNav) {
-        closeNav();
-    } else {
-        $('.popup').fadeOut(200);
-    }
 }
 /////////////////////////////////////////////////////////////////////
 
@@ -304,6 +301,8 @@ var boolEdit = false;
 var listappaDistrib = [];
 var currentappaDistrib = [];
 var idappaDistri = 0;
+
+//Fonction pour commencé la création/édition d'un évènement du distributeur de nourriture (initialisation des champs et fait apparaitre la première pop up)
 function appaDistribCreateEvent(idAppa){
     for (var i = 1; i <= 7; i++) 
         $('#dayEvent' + i).removeClass("selectedCircle")
@@ -342,11 +341,13 @@ function appaDistribCreateEvent(idAppa){
      $('#popupDistribStep1').fadeIn(200, function (){ boolOpenEvent = false; });
 }
 
+
 function step2Distrib(){
     currentappaDistrib['quantiNourri'] = parseInt($('.quantNourri')[0].value==""?0:$('.quantNourri')[0].value);
     hideAll();
     startChooseHour();
 }
+
 function appaDistribSuccess(){
     currentappaDistrib['sentence'] = "";
     if(currentappaDistrib['IDAlarm'] > -1){
@@ -381,11 +382,12 @@ function appaDistribSuccess(){
 }
 /////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////// Création event cafetière
+///////////////////////////////////////////////////////////////////// Création/édition event cafetière
 var listappaCafe = [];
 var currentappaCafe = [];
 var idappaCafe = 0;
 
+//Fonction pour commencé la création/édition d'un évènement avec la cafetière (initialisation des champs et fait apparaitre la première pop up)
 function appaCafeCreateEvent(idAppa){
     for (var i = 1; i <= 7; i++)
         $('#dayEvent' + i).removeClass("selectedCircle")
@@ -456,11 +458,12 @@ function appaCafeSuccess(){
 
 /////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////// Création event chauffage
+///////////////////////////////////////////////////////////////////// Création/édition event chauffage
 var listappaChauffage = [];
 var currentappaChauffage = [];
 var idappaChauffage = 0;
 
+//Fonction pour commencé la création/édition d'un évènement le chauffage (initialisation des champs et fait apparaitre la première pop up)
 function appaChauffageCreateEvent(idAppa){
     for (var i = 1; i <= 7; i++)
         $('#dayEvent' + i).removeClass("selectedCircle")
@@ -545,11 +548,12 @@ function appaChauffageSuccess(){
 }
 /////////////////////////////////////////////////////////////////////
 
-///////////////////////////////////////////////////////////////////// Création event volet
+///////////////////////////////////////////////////////////////////// Création/édition event volet
 var listappaVolet = [];
 var currentappaVolet = [];
 var idappaVolet = 0;
 
+//Fonction pour commencé la création/édition d'un évènement les volets (initialisation des champs et fait apparaitre la première pop up)
 function appaVoletCreateEvent(idAppa){
     for (var i = 1; i <= 7; i++)
         $('#dayEvent' + i).removeClass("selectedCircle")
@@ -649,6 +653,7 @@ function appaVoletSuccess(){
 }
 /////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////// Choix heure de déclenchement d'un évènement
 function startChooseHour(){    
     $('#choixHeurestep1').siblings().hide();
     $('#choixHeurestep1').show();
@@ -662,17 +667,20 @@ function withAlarm(){
 function atFixHour(){
     $('#choixHeurestep1').fadeOut(200, function (){ $('#choixHeurestepAtFixHour').fadeIn(200); });    
 }
+
 function selectAlarm(id){
     window["current" + currentEvent]['hour'] = alarmTab[id.replace("choseAlarmID","")][0];
     window["current" + currentEvent]['tabDay'] = alarmTab[id.replace("choseAlarmID","")][1];
     window["current" + currentEvent]['IDAlarm'] = alarmTab[id.replace("choseAlarmID","")][2];    
     $('#choixHeureWithAlarmStep1').fadeOut(200, function (){ $('#choixHeureWithAlarmStep2').fadeIn(200); });
 }
+
 function valideDecalage(){    
     window["current" + currentEvent]['hdecalage'] = $('#decalageHeure')[0].value;
     window["current" + currentEvent]['sdecalage'] = $('#plusmoins')[0].value;
     window[currentEvent + "Success"]();
 }
+
 function valideAtFixHour(){
      for(var i=1;i<=7;i++)
         window["current" + currentEvent]['tabDay'][i-1] = $('#dayEvent'+i).hasClass('selectedCircle');   
@@ -684,6 +692,7 @@ function valideAtFixHour(){
 /////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////// Gestion évènements
+//Fonction qui génère la liste des évènements créer, dans l'interface (pop up liste évènement)
 function updateListEvent(){
     $('#popupEvents').children().remove();
     
@@ -705,8 +714,22 @@ function updateListEvent(){
     
 }
 /////////////////////////////////////////////////////////////////////
+
+//Fonction pour masquer toute les popups et le menu
+function hideAll(boolNav) {
+    if (boolNav) {
+        closeNav();
+    } else {
+        $('.popup').fadeOut(200);
+    }
+}
+
+//Fonction jquerry qui s'éxécute une fois le chargement de la page fini
 $(function () {
+    //Masque toute les pop ups à la fin du chargement de la page
     $('.popup').hide();
+    
+    //Charge et initialise le slider
     $("#floorSlider").slider({
         min: 0,
         max: 1,
@@ -714,6 +737,8 @@ $(function () {
         animate: true,
         change: switchFloor
     }); 
+    
+    //Création des évènements des boutons du menu
     $("#btnAlarme").click(function(e){
         closeNav();
         $('.popup').fadeOut(200);
@@ -738,6 +763,7 @@ $(function () {
         $('#popupAbout').fadeIn(200);
     });
     
+    //Création de l'évènement pour sélectionner un jours (appuyé sur un "rond" d'un jours le fait devenir bleu ou blanc) bleu = sélectionné, blanc = désélectionné
     $('.cirlcleDay').click(function (e){
         if($(this).hasClass('selectedCircle'))
              $(this).removeClass("selectedCircle");
@@ -745,11 +771,11 @@ $(function () {
             $(this).addClass("selectedCircle");
     });  
     
+    //Création de l'évènement pour géré la fermeture du menu ou des pops lors de l'appuie en dehors d'une popup et du menu
     $(".content").click(function(e) {
         if(!boolOpenEvent)
             hideAll(boolNav);
-    });
-    
+    });    
     $(".popup").click(function(e) {
         if (boolNav && !boolOpenEvent){
             hideAll(boolNav);

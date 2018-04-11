@@ -7,10 +7,10 @@
 </head>
 <body>
 <div id="pop">
+    <!-- Le site fonctionne avec des popups qui se mettent en premier plan, elles sont remplis par programmation avec du javascript -->
     <!-- Pop up Alarmes -->
     <div class="popup" id="popupAlarmes">
-        <div class="entries"  onclick="startCreationAlarm()">Ajouter une alarme</div>
-        
+        <div class="entries"  onclick="startCreationAlarm()">Ajouter une alarme</div>        
     </div>
 
     <!-- Pop up events -->
@@ -89,7 +89,8 @@
         <input class="largerButton" id="valideChauffag2e" type="button" value="Aucun" onclick="step3Chauffage()"><br><br>
     </div>
      <!----------------------------------------->
-        <!-- Pop up création event volet -->
+    
+    <!------- Pop up création event volet ------>
     <div class="popup" id="popupVoletStep1">
         <h3>Choississez les volets</h3>
         <div class="listVolet">
@@ -113,11 +114,15 @@
         <input class="largerButton" id="valideVolet" type="button" value="Fermer" onclick="step3FermerVolet()"><br><br>
     </div>
      <!--------------------------------------->
+    
+    <!------- Popup de succés de création d'alarme ------>
     <div class="popup" id="popUpSuccess">
         <h3 id="sentenceSuccess"></h3><br>
           <input class="button" id="valideAlarm" type="button" value="Valider" onclick="hideAll()">
     </div>
+    <!--------------------------------------->
     
+    <!------- Popup de choix entre évènement à heure fixe ou avec alarme ------>
     <div class="popup" id="popupChoixHeure">
         <div id="choixHeurestep1" hidden>
             <h3>A quelle heure voulez vous que l'évènement se déclenche ?</h3>
@@ -155,7 +160,8 @@
         </div>
     </div>
 </div>
-    
+ <!--------------------------------------->
+    <!------- Menu latéral ------>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#" id="btnAlarme">Alarmes</a>
@@ -163,11 +169,11 @@
         <a href="#" id="btnAppa" >Appareils</a>
         <a href="#" id="btnAbout">A&nbsp;propos</a>
     </div>
-
+    <!------- Barre en haut de l'écran, avec bouton pour ouvrir le menu   ------>
     <div class="topbar" id="topbar">
         <span style="font-size:30px;cursor:pointer; color:white" onclick="openNav()">&#8801; Smart Morning</span>
     </div>
-
+    <!------- Block de contenu de la page (schéma) avec éléments (objets connectées) rajouté par programmation  ------>
     <div class="content">
         <div class="planContainer" id="planContainer">
             <div class="plan" id="plan">
@@ -175,10 +181,10 @@
             </div>
         </div>
         
+        <!------- Block du slider   ------>
         <div class="floorSlider" id="floorSlider">
-
         </div>
-        
+         <!------- Block du label indiquant l'étage que l'on est en train de gérer  ------>
         <div class="floorLabel" id="floorLabel">
             Rez-de-chaussée
         </div>
